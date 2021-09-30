@@ -132,6 +132,7 @@ export default function BreathingExercise({route}: {route: any}) {
         beginExercise={beginExercise}
         reset={() => reset()}
         action={() => setBeginExercise(true)}
+        hasBegun={beginExercise}
       />
     </View>
   );

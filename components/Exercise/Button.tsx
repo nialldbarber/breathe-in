@@ -4,12 +4,14 @@ import {impactAsync} from '../../utils/haptics';
 
 type ExerciseButtonProps = {
   beginExercise: boolean;
+  hasBegun: boolean;
   reset: () => void;
   action: () => void;
 };
 
 export default function ExerciseButton({
   beginExercise,
+  hasBegun,
   reset,
   action,
 }: ExerciseButtonProps) {
@@ -17,6 +19,9 @@ export default function ExerciseButton({
     <View style={styles.button}>
       <View style={styles.buttonInnerWrap}>
         <View style={styles.buttonInnerMask}>
+          <Text style={[{...styles.message}, {opacity: hasBegun ? 0 : 1}]}>
+            Take a breath and...
+          </Text>
           {beginExercise ? (
             <TouchableOpacity
               style={styles.btn}
@@ -73,5 +78,13 @@ const styles = StyleSheet.create({
     color: '#111',
     fontSize: 20,
     padding: 10,
+  },
+  message: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    top: 85,
+    borderRadius: 25,
+    color: '#111',
+    fontSize: 17,
   },
 });
