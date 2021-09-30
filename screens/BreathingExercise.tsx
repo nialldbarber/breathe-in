@@ -11,7 +11,8 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import {ReText} from 'react-native-redash';
-import {impactAsync} from '../utils/haptics';
+import ExerciseButton from '../components/Exercise/Button';
+import ExerciseTitle from '../components/Exercise/Title';
 import {sToM, getTime} from '../utils/time';
 
 const WIDTH = 300;
@@ -24,7 +25,7 @@ export default function BreathingExercise({route}: {route: any}) {
   const {exerciseName, exercise} = route.params;
   const [beginExercise, setBeginExercise] = useState(false);
   const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
-  const instructions = useSharedValue<number>(0);
+  const instructions = useSharedValue<number | string>('');
 
   const innerCircleStyles = useAnimatedStyle(() => ({
     width: innerCircle.value,
@@ -72,10 +73,18 @@ export default function BreathingExercise({route}: {route: any}) {
     if (beginExercise) {
       instructions.value = withRepeat(
         withSequence(
-          withTiming(1, {duration: sToM(exercise[0])}), // out breath
-          withTiming(2, {duration: sToM(exercise[1])}), // hold out breath
-          withTiming(3, {duration: sToM(exercise[2])}), // in breathe
-          withTiming(4, {duration: sToM(exercise[3])}) // hold in breathe
+          withTiming('Breathe in', {
+            duration: sToM(exercise[0]),
+          }),
+          withTiming('Hold', {
+            duration: sToM(exercise[1]),
+          }),
+          withTiming('Breathe in', {
+            duration: sToM(exercise[2]),
+          }),
+          withTiming('Breathe in', {
+            duration: sToM(exercise[3]),
+          })
         ),
         -1,
         false
@@ -104,41 +113,20 @@ export default function BreathingExercise({route}: {route: any}) {
         {beginExercise ? (
           <Text style={styles.timer}>{getTime(seconds)}</Text>
         ) : null}
-        <Text style={styles.exerciseTitle}>{exerciseName}</Text>
+        <ExerciseTitle title={exerciseName} />
         <View style={styles.outerCircle}>
-          <Animated.View style={[{...styles.innerCircle}, innerCircleStyles]} />
+          <Animated.View style={[styles.innerCircle, innerCircleStyles]} />
           <View style={styles.instructions}>
-            {/* <ReText text={animatedText} /> */}
+            {/* <ReText text={instructions} /> */}
+            {/* <Animated.Text>{instructions.value}</Animated.Text> */}
           </View>
         </View>
       </View>
-      <View style={styles.button}>
-        <View style={styles.buttonInnerWrap}>
-          <View style={styles.buttonInnerMask}>
-            {beginExercise ? (
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  reset();
-                  impactAsync('heavy');
-                }}
-              >
-                <Text style={styles.btnText}>Stop</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  setBeginExercise(true);
-                  impactAsync('heavy');
-                }}
-              >
-                <Text style={styles.btnText}>Begin</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-      </View>
+      <ExerciseButton
+        beginExercise={beginExercise}
+        reset={() => reset()}
+        action={() => setBeginExercise(true)}
+      />
     </View>
   );
 }
@@ -156,14 +144,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     top: 50,
-  },
-  exerciseTitle: {
-    position: 'absolute',
-    top: 480,
-    right: -10,
-    fontSize: 60,
-    transform: [{rotate: '-90deg'}],
-    color: '#fff',
   },
   outerCircleContainer: {
     flex: 1,
@@ -196,32 +176,5 @@ const styles = StyleSheet.create({
   },
   instructions: {
     position: 'absolute',
-  },
-  button: {
-    flex: 0.4,
-  },
-  buttonInnerWrap: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: purple,
-  },
-  buttonInnerMask: {
-    flex: 1,
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 75,
-  },
-  btn: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: 'rgba(12, 13, 52, 0.07)',
-    top: 100,
-    width: 250,
-    borderRadius: 25,
-  },
-  btnText: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#111',
-    fontSize: 20,
-    padding: 10,
   },
 });
