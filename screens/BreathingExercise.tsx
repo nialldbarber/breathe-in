@@ -15,8 +15,12 @@ const WIDTH = 300;
 const HEIGHT = 300;
 
 const sToM = (seconds: number): number => seconds * 1000;
+const getTime = (time: number): string =>
+  new Date(time * 1000).toISOString().substr(11, 8);
 
 export default function BreathingExercise({route}: {route: any}) {
+  const [seconds, setSeconds] = useState(0);
+
   const {exerciseName, exercise} = route.params;
   const [beginExercise, setBeginExercise] = useState(false);
   const innerCircle = useSharedValue<number>(WIDTH / 3);
@@ -79,9 +83,21 @@ export default function BreathingExercise({route}: {route: any}) {
     }
   }, [beginExercise]);
 
+  useEffect(() => {
+    if (beginExercise) {
+      const interval = setInterval(() => {
+        setSeconds(seconds + 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [beginExercise, seconds]);
+
   return (
     <View style={styles.container}>
       <View style={styles.outerCircleContainer}>
+        {beginExercise ? (
+          <Text style={styles.timer}>{getTime(seconds)}</Text>
+        ) : null}
         <Text style={styles.exerciseTitle}>{exerciseName}</Text>
         <View style={styles.outerCircle}>
           <Animated.View style={[{...styles.innerCircle}, innerCircleStyles]} />
@@ -97,7 +113,9 @@ export default function BreathingExercise({route}: {route: any}) {
               style={styles.btn}
               onPress={() => setBeginExercise(!beginExercise)}
             >
-              <Text style={styles.btnText}>Begin</Text>
+              <Text style={styles.btnText}>
+                {beginExercise ? 'Stop' : 'Begin'}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -113,6 +131,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  timer: {
+    position: 'absolute',
+    color: '#fff',
+    fontSize: 20,
+    top: 50,
   },
   exerciseTitle: {
     position: 'absolute',
