@@ -8,10 +8,8 @@ import Animated, {
   withRepeat,
   withSequence,
   useDerivedValue,
-  useAnimatedProps,
 } from 'react-native-reanimated';
 import {ReText} from 'react-native-redash';
-import AnimateableText from 'react-native-animateable-text';
 
 const WIDTH = 300;
 const HEIGHT = 300;
@@ -39,12 +37,6 @@ export default function BreathingExercise({route}: {route: any}) {
 
   const animatedText = useDerivedValue(() => {
     return INSTRUCTION_MAP[instructions.value];
-  }, [beginExercise]);
-
-  const animatedProps = useAnimatedProps(() => {
-    return {
-      text: animatedText.value,
-    };
   }, [beginExercise]);
 
   useEffect(() => {
@@ -98,10 +90,7 @@ export default function BreathingExercise({route}: {route: any}) {
       <View>
         <TouchableOpacity onPress={() => setBeginExercise(!beginExercise)}>
           <Text>Begin</Text>
-          <AnimateableText
-            animatedProps={animatedProps}
-            // same other props as Text component
-          />
+          <ReText text={animatedText} />
         </TouchableOpacity>
       </View>
     </View>
