@@ -47,11 +47,10 @@ const styles = StyleSheet.create({
   block: {
     backgroundColor: '#575CFF',
     width: '25%',
-    height: 100,
-    borderRadius: 10,
+    height: 80,
+    borderRadius: 30,
     marginLeft: 5,
     marginRight: 5,
-
     shadowColor: '#575CFF',
     shadowOffset: {
       width: 0,
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.43,
     shadowRadius: 9.51,
-
     elevation: 15,
   },
   blockWrapper: {
