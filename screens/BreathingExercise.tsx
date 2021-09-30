@@ -17,7 +17,7 @@ const HEIGHT = 300;
 const sToM = (seconds: number): number => seconds * 1000;
 
 export default function BreathingExercise({route}: {route: any}) {
-  const {exercise} = route.params;
+  const {exerciseName, exercise} = route.params;
   const [beginExercise, setBeginExercise] = useState(false);
   const innerCircle = useSharedValue<number>(WIDTH / 3);
   const instructions = useSharedValue<number>(0);
@@ -81,28 +81,53 @@ export default function BreathingExercise({route}: {route: any}) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.outerCircle}>
-        <Animated.View style={[{...styles.innerCircle}, innerCircleStyles]} />
-        <View style={styles.instructions}>
-          {/* <ReText text={instructions.value} /> */}
+      <View style={styles.outerCircleContainer}>
+        <Text style={styles.exerciseTitle}>{exerciseName}</Text>
+        <View style={styles.outerCircle}>
+          <Animated.View style={[{...styles.innerCircle}, innerCircleStyles]} />
+          <View style={styles.instructions}>
+            {/* <ReText text={animatedText} /> */}
+          </View>
         </View>
       </View>
-      <View>
-        <TouchableOpacity onPress={() => setBeginExercise(!beginExercise)}>
-          <Text>Begin</Text>
-          <ReText text={animatedText} />
-        </TouchableOpacity>
+      <View style={styles.button}>
+        <View style={styles.buttonInnerWrap}>
+          <View style={styles.buttonInnerMask}>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => setBeginExercise(!beginExercise)}
+            >
+              <Text style={styles.btnText}>Begin</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );
 }
 
+const purple = 'rgba(87, 92, 255, 0.5)';
+const darkerPurple = 'rgba(87, 92, 255, 0.9)';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  exerciseTitle: {
+    position: 'absolute',
+    top: 480,
+    right: -10,
+    fontSize: 60,
+    transform: [{rotate: '-90deg'}],
+    color: '#fff',
+  },
+  outerCircleContainer: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: purple,
+    borderBottomRightRadius: 75,
   },
   outerCircle: {
     position: 'relative',
@@ -111,14 +136,50 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: WIDTH,
     height: HEIGHT,
-    backgroundColor: 'pink',
     borderRadius: WIDTH / 2,
+    backgroundColor: '#fff',
+    shadowColor: '#575CFF',
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+    elevation: 15,
   },
   innerCircle: {
     position: 'absolute',
-    backgroundColor: 'dodgerblue',
+    backgroundColor: darkerPurple,
   },
   instructions: {
     position: 'absolute',
+  },
+  button: {
+    flex: 0.4,
+  },
+  buttonInnerWrap: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: purple,
+  },
+  buttonInnerMask: {
+    flex: 1,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 75,
+  },
+  btn: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: darkerPurple,
+    top: 100,
+    width: 300,
+    borderRadius: 5,
+    color: '#fff',
+  },
+  btnText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    fontSize: 25,
+    padding: 10,
   },
 });

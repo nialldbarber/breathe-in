@@ -46,7 +46,10 @@ export default function HomeScreen() {
         <Block
           title="Box"
           onPress={() =>
-            navigation.navigate('BreathingExercise', {exercise: [4, 4, 4, 4]})
+            navigation.navigate('BreathingExercise', {
+              exerciseName: 'Box',
+              exercise: [4, 4, 4, 4],
+            })
           }
           delay={0}
         />
