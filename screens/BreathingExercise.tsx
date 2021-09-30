@@ -212,17 +212,16 @@ const styles = StyleSheet.create({
   btn: {
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: darkerPurple,
+    backgroundColor: 'rgba(12, 13, 52, 0.07)',
     top: 100,
-    width: 300,
-    borderRadius: 5,
-    color: '#fff',
+    width: 250,
+    borderRadius: 25,
   },
   btnText: {
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#fff',
-    fontSize: 25,
+    color: '#111',
+    fontSize: 20,
     padding: 10,
   },
 });
