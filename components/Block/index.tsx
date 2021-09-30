@@ -51,14 +51,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginLeft: 5,
     marginRight: 5,
+
+    shadowColor: '#575CFF',
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+
+    elevation: 15,
   },
   blockWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'red',
-    borderWidth: 2,
-    borderStyle: 'dashed',
     height: '100%',
     width: '100%',
   },
