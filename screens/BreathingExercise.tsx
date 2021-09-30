@@ -8,15 +8,14 @@ import Animated, {
   withRepeat,
   withSequence,
   useDerivedValue,
+  withSpring,
 } from 'react-native-reanimated';
 import {ReText} from 'react-native-redash';
+import {impactAsync} from '../utils/haptics';
+import {sToM, getTime} from '../utils/time';
 
 const WIDTH = 300;
 const HEIGHT = 300;
-
-const sToM = (seconds: number): number => seconds * 1000;
-const getTime = (time: number): string =>
-  new Date(time * 1000).toISOString().substr(11, 8);
 
 export default function BreathingExercise({route}: {route: any}) {
   const [seconds, setSeconds] = useState(0);
@@ -92,6 +91,12 @@ export default function BreathingExercise({route}: {route: any}) {
     }
   }, [beginExercise, seconds]);
 
+  function reset() {
+    setSeconds(0);
+    setBeginExercise(false);
+    innerCircle.value = withSpring(WIDTH / 3);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.outerCircleContainer}>
@@ -109,14 +114,27 @@ export default function BreathingExercise({route}: {route: any}) {
       <View style={styles.button}>
         <View style={styles.buttonInnerWrap}>
           <View style={styles.buttonInnerMask}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => setBeginExercise(!beginExercise)}
-            >
-              <Text style={styles.btnText}>
-                {beginExercise ? 'Stop' : 'Begin'}
-              </Text>
-            </TouchableOpacity>
+            {beginExercise ? (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  reset();
+                  impactAsync('heavy');
+                }}
+              >
+                <Text style={styles.btnText}>Stop</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  setBeginExercise(true);
+                  impactAsync('heavy');
+                }}
+              >
+                <Text style={styles.btnText}>Begin</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>
