@@ -73,9 +73,9 @@ export default function BreathingExercise({route}: {route: any}) {
       instructions.value = withRepeat(
         withSequence(
           withTiming(1, {duration: sToM(exercise[0])}), // out breath
-          withTiming(2, {duration: sToM(exercise[1])}), // out breath
+          withTiming(2, {duration: sToM(exercise[1])}), // hold out breath
           withTiming(3, {duration: sToM(exercise[2])}), // in breathe
-          withTiming(4, {duration: sToM(exercise[3])}) // in breathe
+          withTiming(4, {duration: sToM(exercise[3])}) // hold in breathe
         ),
         -1,
         false
