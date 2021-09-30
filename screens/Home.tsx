@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, SafeAreaView, View} from 'react-native';
+import {StyleSheet, SafeAreaView, View, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {StatusBar} from 'expo-status-bar';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -11,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import Block from '../components/Block';
 import {RootStackParamList} from '../App';
+import {CONFIG} from '../constants/exercises';
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -32,6 +32,19 @@ export default function HomeScreen() {
     subColor.value = withDelay(1000, withTiming('#111', {duration: 1000}));
   }, []);
 
+  const renderItem = ({item: {exerciseName, page, exercise, delay}}: any) => (
+    <Block
+      title={exerciseName}
+      onPress={() =>
+        navigation.navigate(page, {
+          exerciseName,
+          exercise,
+        })
+      }
+      {...{delay}}
+    />
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textWrapper}>
@@ -43,18 +56,13 @@ export default function HomeScreen() {
         </Animated.Text>
       </View>
       <View style={styles.blockContainer}>
-        <Block
-          title="Box"
-          onPress={() =>
-            navigation.navigate('BreathingExercise', {
-              exerciseName: 'Box',
-              exercise: [4, 4, 4, 4],
-            })
-          }
-          delay={0}
+        <FlatList
+          data={CONFIG}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          numColumns={3}
+          columnWrapperStyle={{flex: 1, justifyContent: 'center'}}
         />
-        <Block title="Awake" delay={700} />
-        <Block title="Calm" delay={1400} />
       </View>
     </SafeAreaView>
   );
@@ -85,5 +93,6 @@ const styles = StyleSheet.create({
     flex: 3,
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

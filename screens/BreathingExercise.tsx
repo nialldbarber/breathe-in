@@ -16,13 +16,14 @@ import {sToM, getTime} from '../utils/time';
 
 const WIDTH = 300;
 const HEIGHT = 300;
+const ORIGINAL_SIZE = WIDTH / 3;
 
 export default function BreathingExercise({route}: {route: any}) {
   const [seconds, setSeconds] = useState(0);
 
   const {exerciseName, exercise} = route.params;
   const [beginExercise, setBeginExercise] = useState(false);
-  const innerCircle = useSharedValue<number>(WIDTH / 3);
+  const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
   const instructions = useSharedValue<number>(0);
 
   const innerCircleStyles = useAnimatedStyle(() => ({
@@ -54,12 +55,12 @@ export default function BreathingExercise({route}: {route: any}) {
           // out breath
           withTiming(WIDTH, {duration: sToM(exercise[1])}),
           // in breathe
-          withTiming(WIDTH / 3, {
+          withTiming(ORIGINAL_SIZE, {
             duration: sToM(exercise[2]),
             easing: Easing.linear,
           }),
           // in breathe
-          withTiming(WIDTH / 3, {duration: sToM(exercise[3])})
+          withTiming(ORIGINAL_SIZE, {duration: sToM(exercise[3])})
         ),
         -1,
         false
@@ -94,7 +95,7 @@ export default function BreathingExercise({route}: {route: any}) {
   function reset() {
     setSeconds(0);
     setBeginExercise(false);
-    innerCircle.value = withSpring(WIDTH / 3);
+    innerCircle.value = withSpring(ORIGINAL_SIZE);
   }
 
   return (
