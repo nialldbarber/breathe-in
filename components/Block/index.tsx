@@ -8,9 +8,11 @@ import Animated, {
 } from 'react-native-reanimated';
 
 export default function Block({
+  title,
   delay,
   onPress,
 }: {
+  title: string;
   delay: number;
   onPress?: () => void;
 }) {
@@ -24,7 +26,7 @@ export default function Block({
     block.value = withDelay(
       delay,
       withDelay(
-        1000,
+        2000,
         withTiming(1, {
           duration: 1000,
         })
@@ -35,7 +37,7 @@ export default function Block({
   return (
     <Animated.View style={[{...styles.block}, blockStyle]}>
       <TouchableOpacity style={styles.blockWrapper} onPress={onPress}>
-        <Text style={styles.blockText}>Test</Text>
+        <Text style={styles.blockText}>{title}</Text>
       </TouchableOpacity>
     </Animated.View>
   );
