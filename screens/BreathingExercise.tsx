@@ -10,7 +10,9 @@ import Animated, {
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
+import {useNavigation} from '@react-navigation/native';
 import {ReText} from 'react-native-redash';
+import {Icon} from 'react-native-elements';
 import ExerciseButton from '../components/Exercise/Button';
 import ExerciseTitle from '../components/Exercise/Title';
 import {sToM, getTime} from '../utils/time';
@@ -20,6 +22,7 @@ const HEIGHT = 300;
 const ORIGINAL_SIZE = WIDTH / 3;
 
 export default function BreathingExercise({route}: {route: any}) {
+  const {navigate} = useNavigation() as any;
   const [seconds, setSeconds] = useState(0);
 
   const {exerciseName, exercise} = route.params;
@@ -110,6 +113,9 @@ export default function BreathingExercise({route}: {route: any}) {
   return (
     <View style={styles.container}>
       <View style={styles.outerCircleContainer}>
+        <TouchableOpacity style={styles.back} onPress={() => navigate('Home')}>
+          <Icon name="arrow-back" type="material" color="#fff" />
+        </TouchableOpacity>
         {beginExercise ? (
           <Text style={styles.timer}>{getTime(seconds)}</Text>
         ) : null}
@@ -144,6 +150,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     top: 50,
+  },
+  back: {
+    position: 'absolute',
+    top: 60,
+    left: 0,
+    zIndex: 999,
+    width: 100,
+    height: 100,
   },
   outerCircleContainer: {
     flex: 1,
