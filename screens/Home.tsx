@@ -1,7 +1,19 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, SafeAreaView, View, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  FlatList,
+  ImageBackground,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -51,23 +63,50 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.textWrapper}>
-        <Animated.Text style={[styles.text, colorStyle]}>
-          Hey, there!
-        </Animated.Text>
-        <Animated.Text style={[styles.subText, subColorStyle]}>
-          Choose a breathing exercise from the list below
-        </Animated.Text>
-      </View>
-      <View style={styles.blockContainer}>
-        <FlatList
-          data={CONFIG}
-          renderItem={renderItem}
-          keyExtractor={({id}) => id}
-          numColumns={3}
-          columnWrapperStyle={styles.flatList}
-        />
-      </View>
+      <ScrollView>
+        <View style={styles.textWrapper}>
+          <Animated.Text style={[styles.text, colorStyle]}>
+            Hey, there!
+          </Animated.Text>
+          <Animated.Text style={[styles.subText, subColorStyle]}>
+            Choose a breathing exercise from the list below
+          </Animated.Text>
+        </View>
+        {CONFIG.map(({id, title, config, image}) => (
+          <View key={id} style={styles.blockContainer}>
+            <ImageBackground
+              source={image}
+              style={{
+                flex: 1,
+                height: 100,
+                width: wp('100%'),
+                justifyContent: 'center',
+              }}
+              resizeMode="cover"
+            >
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 35,
+                  fontWeight: '500',
+                  paddingLeft: 35,
+                }}
+              >
+                {title}
+              </Text>
+            </ImageBackground>
+            <View>
+              <FlatList
+                data={config}
+                renderItem={renderItem}
+                keyExtractor={({id}) => id}
+                numColumns={3}
+                columnWrapperStyle={styles.blocks}
+              />
+            </View>
+          </View>
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -86,21 +125,21 @@ const styles = StyleSheet.create({
     paddingRight: 40,
   },
   text: {
-    fontSize: 30,
-    width: 100,
-    marginBottom: 150,
+    fontSize: 50,
+    width: 200,
+    marginBottom: 70,
   },
   subText: {
     fontSize: 20,
   },
-  flatList: {
-    flex: 1,
-    justifyContent: 'center',
-  },
   blockContainer: {
-    flex: 3,
+    justifyContent: 'center',
+    marginTop: 40,
+  },
+  blocks: {
     display: 'flex',
-    flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
+    padding: 20,
   },
 });

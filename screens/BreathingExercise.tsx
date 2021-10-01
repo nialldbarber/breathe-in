@@ -7,7 +7,6 @@ import Animated, {
   withTiming,
   withRepeat,
   withSequence,
-  useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
 import {useNavigation} from '@react-navigation/native';
@@ -41,9 +40,13 @@ export default function BreathingExercise({route}: {route: any}) {
     4: 'Hold',
   };
 
-  const animatedText = useDerivedValue(() => {
-    return INSTRUCTION_MAP[instructions.value];
-  }, [beginExercise]);
+  // const animatedText = useDerivedValue(() => {
+  //   return INSTRUCTION_MAP[instructions.value];
+  // }, [beginExercise]);
+
+  // const animatedText = useDerivedValue(() => {
+  //   return instructions.replace(/NaN/g, '');
+  // }, [beginExercise]);
 
   useEffect(() => {
     if (beginExercise) {
@@ -80,10 +83,10 @@ export default function BreathingExercise({route}: {route: any}) {
           withTiming('Hold', {
             duration: sToM(exercise[1]),
           }),
-          withTiming('Breathe in', {
+          withTiming('Breathe out', {
             duration: sToM(exercise[2]),
           }),
-          withTiming('Breathe in', {
+          withTiming('Hold', {
             duration: sToM(exercise[3]),
           })
         ),
@@ -122,8 +125,7 @@ export default function BreathingExercise({route}: {route: any}) {
         <View style={styles.outerCircle}>
           <Animated.View style={[styles.innerCircle, innerCircleStyles]} />
           <View style={styles.instructions}>
-            {/* <ReText text={instructions} /> */}
-            {/* <Animated.Text>{instructions.value}</Animated.Text> */}
+            {beginExercise ? <ReText text={instructions} /> : null}
           </View>
         </View>
       </View>

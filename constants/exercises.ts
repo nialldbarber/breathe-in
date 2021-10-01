@@ -8,9 +8,27 @@ type ConfigT = {
   delay: number;
 };
 
-export const CONFIG: ConfigT[] = [
+export const CALM_CONFIG: ConfigT[] = [
   {id: 1, page, exerciseName: 'Box', exercise: [4, 4, 4, 4], delay: 0},
-  {id: 2, page, exerciseName: 'Box #2', exercise: [5, 5, 5, 5], delay: 0},
-  {id: 3, page, exerciseName: 'Awake', exercise: [6, 0, 2, 0], delay: 700},
-  {id: 4, page, exerciseName: 'Calm', exercise: [4, 7, 8, 0], delay: 1400},
+  {id: 2, page, exerciseName: 'Box #2', exercise: [5, 5, 5, 5], delay: 400},
+  {id: 3, page, exerciseName: 'Calm', exercise: [4, 7, 8, 0], delay: 800},
+];
+
+export const AWAKE_CONFIG: ConfigT[] = [
+  {id: 4, page, exerciseName: 'Awake', exercise: [6, 0, 2, 0], delay: 1200},
+];
+
+export const CONFIG = [
+  {
+    id: 100,
+    title: 'Calm',
+    config: CALM_CONFIG,
+    image: require('../assets/exercises/calm.jpg'),
+  },
+  {
+    id: 101,
+    title: 'Awake',
+    config: AWAKE_CONFIG,
+    image: require('../assets/exercises/calm.jpg'),
+  },
 ];

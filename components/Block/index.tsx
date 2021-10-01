@@ -1,9 +1,15 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 import {COLORS, SHADOW} from '../../constants/theme';
@@ -17,10 +23,16 @@ export default function Block({
   delay: number;
   onPress?: () => void;
 }) {
+  const navigation = useNavigation() as any;
   const block = useSharedValue<number>(0);
+  const scale = useSharedValue<number>(1);
 
   const blockStyle = useAnimatedStyle(() => ({
     opacity: block.value,
+  }));
+
+  const blockHover = useAnimatedStyle(() => ({
+    transform: [{scale: scale.value}],
   }));
 
   useEffect(() => {
@@ -35,9 +47,21 @@ export default function Block({
     );
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      scale.value = withSpring(1, {stiffness: 120});
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   return (
-    <Animated.View style={[{...styles.block}, blockStyle]}>
-      <TouchableOpacity style={styles.blockWrapper} onPress={onPress}>
+    <Animated.View style={[{...styles.block}, blockStyle, blockHover]}>
+      <TouchableOpacity
+        style={styles.blockWrapper}
+        onPress={onPress}
+        onPressIn={() => (scale.value = withSpring(1.1))}
+        onPressOut={() => (scale.value = withSpring(0))}
+      >
         <Text style={styles.blockText}>{title}</Text>
       </TouchableOpacity>
     </Animated.View>
@@ -47,13 +71,12 @@ export default function Block({
 const styles = StyleSheet.create({
   block: {
     backgroundColor: COLORS.purple,
-    width: '25%',
+    width: wp('44%'),
     height: 80,
     borderRadius: 30,
-    marginLeft: 5,
-    marginRight: 5,
-    marginBottom: 15,
     shadowColor: COLORS.purple,
+    marginTop: 10,
+    marginBottom: 10,
     ...SHADOW,
   },
   blockWrapper: {
