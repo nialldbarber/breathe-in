@@ -81,7 +81,7 @@ export default function HomeScreen() {
               source={image}
               style={{
                 flex: 1,
-                height: 120,
+                height: hp('18%'),
                 width: wp('100%'),
                 justifyContent: 'center',
               }}
@@ -89,8 +89,8 @@ export default function HomeScreen() {
             >
               <Text
                 style={{
-                  color: '#fff',
-                  fontSize: 35,
+                  color: COLORS.white,
+                  fontSize: wp('10%'),
                   fontWeight: '500',
                   paddingLeft: 35,
                 }}
@@ -128,12 +128,12 @@ const styles = StyleSheet.create({
     paddingRight: 40,
   },
   text: {
-    fontSize: 50,
+    fontSize: wp('12%'),
     width: 200,
     marginBottom: 70,
   },
   subText: {
-    fontSize: 20,
+    fontSize: wp('4.5%'),
   },
   blockContainer: {
     justifyContent: 'center',

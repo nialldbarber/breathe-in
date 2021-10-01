@@ -10,6 +10,10 @@ import Animated, {
   withSequence,
   withSpring,
 } from 'react-native-reanimated';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import {useNavigation} from '@react-navigation/native';
 import {ReText} from 'react-native-redash';
 import {Icon} from 'react-native-elements';
@@ -175,8 +179,8 @@ const styles = StyleSheet.create({
   },
   back: {
     position: 'absolute',
-    top: 60,
-    left: 0,
+    top: hp('7%'),
+    left: wp('-5%'),
     width: 100,
     height: 100,
   },

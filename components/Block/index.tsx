@@ -74,7 +74,7 @@ export default function Block({
           onPress && onPress();
           scale.value = withSpring(0);
         }}
-        onPressIn={() => (scale.value = withSpring(1.1))}
+        onPressIn={() => (scale.value = withSpring(1.05))}
         onPressOut={() => (scale.value = withSpring(1))}
       >
         <Text
