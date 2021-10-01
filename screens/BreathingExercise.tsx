@@ -15,6 +15,7 @@ import {ReText} from 'react-native-redash';
 import {Icon} from 'react-native-elements';
 import ExerciseButton from '../components/Exercise/Button';
 import ExerciseTitle from '../components/Exercise/Title';
+import Steps from '../components/Exercise/Steps';
 import {sToM, getTime} from '../utils/time';
 
 const WIDTH = 300;
@@ -112,6 +113,7 @@ export default function BreathingExercise({route}: {route: any}) {
 
   return (
     <View style={styles.container}>
+      <Steps {...{exercise}} />
       <View style={styles.outerCircleContainer}>
         <TouchableOpacity style={styles.back} onPress={() => navigate('Home')}>
           <Icon name="arrow-back" type="material" color="#fff" />

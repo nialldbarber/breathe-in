@@ -1,7 +1,11 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-export default function ExerciseTitle({title}: {title: string}) {
+type ExerciseTitleProps = {
+  title: string;
+};
+
+export default function ExerciseTitle({title}: ExerciseTitleProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -14,9 +18,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 50,
     bottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     fontSize: 55,
     color: '#fff',
+    marginRight: 30,
   },
 });
