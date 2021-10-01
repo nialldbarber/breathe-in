@@ -1,5 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import {impactAsync} from '../../utils/haptics';
 import {COLORS} from '../../constants/theme';
 
@@ -8,6 +12,7 @@ type ExerciseButtonProps = {
   hasBegun: boolean;
   reset: () => void;
   action: () => void;
+  theme: string;
 };
 
 export default function ExerciseButton({
@@ -15,10 +20,16 @@ export default function ExerciseButton({
   hasBegun,
   reset,
   action,
+  theme,
 }: ExerciseButtonProps) {
   return (
     <View style={styles.button}>
-      <View style={styles.buttonInnerWrap}>
+      <View
+        style={{
+          ...styles.buttonInnerWrap,
+          backgroundColor: COLORS[`light${theme}`],
+        }}
+      >
         <View style={styles.buttonInnerMask}>
           <Text style={[{...styles.message}, {opacity: hasBegun ? 0 : 1}]}>
             Take a breath and...
@@ -52,11 +63,10 @@ export default function ExerciseButton({
 
 const styles = StyleSheet.create({
   button: {
-    flex: 0.4,
+    flex: 0.35,
   },
   buttonInnerWrap: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: COLORS.lightPurple,
   },
   buttonInnerMask: {
     flex: 1,
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     backgroundColor: COLORS.lightGrey,
-    top: 100,
+    top: hp('9%'),
     width: 250,
     borderRadius: 25,
   },
@@ -81,7 +91,7 @@ const styles = StyleSheet.create({
   message: {
     alignItems: 'center',
     alignSelf: 'center',
-    top: 85,
+    top: hp('8%'),
     borderRadius: 25,
     color: COLORS.black,
     fontSize: 17,
