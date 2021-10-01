@@ -18,8 +18,6 @@ export default function AnimatedText({text}: {text: any}) {
     };
   });
 
-  console.log(text);
-
   return (
     <AnimatedTextInput
       editable={false}

@@ -4,6 +4,7 @@ import Animated, {
   Easing,
   useSharedValue,
   useAnimatedStyle,
+  useDerivedValue,
   withTiming,
   withRepeat,
   withSequence,
@@ -22,7 +23,7 @@ export default function BreathingExercise({route}: {route: any}) {
   const {navigate} = useNavigation() as any;
   const [seconds, setSeconds] = useState(0);
 
-  const {exerciseName, exercise} = route.params;
+  const {exerciseName, exercise, theme} = route.params;
   const [beginExercise, setBeginExercise] = useState(false);
   const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
   const instructions = useSharedValue<number | string>('');
@@ -33,20 +34,11 @@ export default function BreathingExercise({route}: {route: any}) {
     borderRadius: innerCircle.value / 2,
   }));
 
-  const INSTRUCTION_MAP: Record<number, string> = {
-    1: 'Breathe in',
-    2: 'Hold',
-    3: 'Breathe out',
-    4: 'Hold',
-  };
-
-  // const animatedText = useDerivedValue(() => {
-  //   return INSTRUCTION_MAP[instructions.value];
-  // }, [beginExercise]);
-
-  // const animatedText = useDerivedValue(() => {
-  //   return instructions.replace(/NaN/g, '');
-  // }, [beginExercise]);
+  const animatedText = useDerivedValue(() => {
+    let str: any = instructions.value;
+    str = str.replace(/NaN/g, '');
+    return str;
+  }, [beginExercise]);
 
   useEffect(() => {
     if (beginExercise) {
@@ -77,13 +69,13 @@ export default function BreathingExercise({route}: {route: any}) {
     if (beginExercise) {
       instructions.value = withRepeat(
         withSequence(
-          withTiming('Breathe in', {
+          withTiming('In', {
             duration: sToM(exercise[0]),
           }),
           withTiming('Hold', {
             duration: sToM(exercise[1]),
           }),
-          withTiming('Breathe out', {
+          withTiming('Out', {
             duration: sToM(exercise[2]),
           }),
           withTiming('Hold', {
@@ -113,19 +105,50 @@ export default function BreathingExercise({route}: {route: any}) {
 
   return (
     <View style={styles.container}>
-      <Steps {...{exercise}} />
-      <View style={styles.outerCircleContainer}>
+      <Steps {...{exercise, theme}} />
+      <View
+        style={{
+          ...styles.outerCircleContainer,
+          backgroundColor: COLORS[`light${theme}`],
+        }}
+      >
         <TouchableOpacity style={styles.back} onPress={() => navigate('Home')}>
-          <Icon name="arrow-back" type="material" color={COLORS.white} />
+          <Icon
+            name="arrow-back"
+            type="material"
+            color={theme === 'yellow' ? COLORS.black : COLORS.white}
+          />
         </TouchableOpacity>
         {beginExercise ? (
-          <Text style={styles.timer}>{getTime(seconds)}</Text>
+          <Text
+            style={{
+              ...styles.timer,
+              color: theme === 'yellow' ? COLORS.black : COLORS.white,
+            }}
+          >
+            {getTime(seconds)}
+          </Text>
         ) : null}
-        <ExerciseTitle title={exerciseName} />
-        <View style={styles.outerCircle}>
-          <Animated.View style={[styles.innerCircle, innerCircleStyles]} />
+        <ExerciseTitle title={exerciseName} {...{theme}} />
+        <View style={{...styles.outerCircle, shadowColor: COLORS[theme]}}>
+          <Animated.View
+            style={[
+              styles.innerCircle,
+              {backgroundColor: COLORS[`darker${theme}`]},
+              ,
+              innerCircleStyles,
+            ]}
+          />
           <View style={styles.instructions}>
-            {beginExercise ? <ReText text={instructions} /> : null}
+            {beginExercise ? (
+              <ReText
+                text={animatedText}
+                style={{
+                  color: COLORS.white,
+                  fontSize: 25,
+                }}
+              />
+            ) : null}
           </View>
         </View>
       </View>
@@ -146,7 +169,6 @@ const styles = StyleSheet.create({
   },
   timer: {
     position: 'absolute',
-    color: COLORS.white,
     fontSize: 20,
     top: 50,
   },
@@ -161,7 +183,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.lightPurple,
     borderBottomRightRadius: 75,
   },
   outerCircle: {
@@ -173,12 +194,10 @@ const styles = StyleSheet.create({
     height: HEIGHT,
     borderRadius: WIDTH / 2,
     backgroundColor: COLORS.white,
-    shadowColor: COLORS.purple,
     ...SHADOW,
   },
   innerCircle: {
     position: 'absolute',
-    backgroundColor: COLORS.darkerPurple,
   },
   instructions: {
     position: 'absolute',

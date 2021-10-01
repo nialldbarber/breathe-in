@@ -4,12 +4,20 @@ import {COLORS} from '../../constants/theme';
 
 type ExerciseTitleProps = {
   title: string;
+  theme: string;
 };
 
-export default function ExerciseTitle({title}: ExerciseTitleProps) {
+export default function ExerciseTitle({title, theme}: ExerciseTitleProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Text
+        style={{
+          ...styles.title,
+          color: theme === 'yellow' ? COLORS.black : COLORS.white,
+        }}
+      >
+        {title}
+      </Text>
     </View>
   );
 }
@@ -25,7 +33,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 55,
-    color: COLORS.white,
     marginRight: 30,
   },
 });

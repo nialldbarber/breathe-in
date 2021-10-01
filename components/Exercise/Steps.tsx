@@ -8,14 +8,22 @@ import {COLORS} from '../../constants/theme';
 
 type StepsProps = {
   exercise: number[];
+  theme: string;
 };
 
-export default function Steps({exercise}: StepsProps) {
+export default function Steps({exercise, theme}: StepsProps) {
   const stringMap = exercise.join('-');
 
   return (
     <View style={styles.exercise}>
-      <Text style={styles.exerciseNode}>{stringMap}</Text>
+      <Text
+        style={{
+          ...styles.exerciseNode,
+          color: theme === 'yellow' ? COLORS.black : COLORS[theme],
+        }}
+      >
+        {stringMap}
+      </Text>
     </View>
   );
 }
@@ -28,7 +36,6 @@ const styles = StyleSheet.create({
     right: wp('-12%'),
   },
   exerciseNode: {
-    color: COLORS.purple,
     fontSize: wp('8%'),
     fontWeight: '500',
     letterSpacing: 3,

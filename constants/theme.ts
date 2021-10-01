@@ -1,9 +1,19 @@
-export const COLORS = {
+export const COLORS: Record<string, string> = {
   white: '#FFFFFF',
   black: '#111111',
   purple: '#575CFF',
-  lightPurple: 'rgba(87, 92, 255, 0.5)',
-  darkerPurple: 'rgba(87, 92, 255, 0.9)',
+  blue: '#579DFF',
+  yellow: '#FFEE57',
+
+  lightpurple: 'rgba(87, 92, 255, 0.5)',
+  darkerpurple: 'rgba(87, 92, 255, 0.9)',
+
+  lightblue: 'rgba(87, 157, 255, 0.5)',
+  darkerblue: 'rgba(87, 157, 255, 0.9)',
+
+  lightyellow: 'rgba(255, 238, 87, 0.5)',
+  darkeryellow: 'rgba(255, 238, 87, 0.9)',
+
   lightGrey: 'rgba(12, 13, 52, 0.07)',
 };
 

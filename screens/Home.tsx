@@ -48,16 +48,19 @@ export default function HomeScreen() {
     );
   }, []);
 
-  const renderItem = ({item: {exerciseName, page, exercise, delay}}: any) => (
+  const renderItem = ({
+    item: {exerciseName, page, exercise, delay, theme},
+  }: any) => (
     <Block
       title={exerciseName}
       onPress={() =>
         navigation.navigate(page, {
           exerciseName,
           exercise,
+          theme,
         })
       }
-      {...{delay}}
+      {...{theme, delay}}
     />
   );
 
@@ -78,7 +81,7 @@ export default function HomeScreen() {
               source={image}
               style={{
                 flex: 1,
-                height: 100,
+                height: 120,
                 width: wp('100%'),
                 justifyContent: 'center',
               }}

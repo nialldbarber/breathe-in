@@ -16,11 +16,13 @@ import {COLORS, SHADOW} from '../../constants/theme';
 
 export default function Block({
   title,
+  theme,
   delay,
   onPress,
 }: {
   title: string;
   delay: number;
+  theme: string;
   onPress?: () => void;
 }) {
   const navigation = useNavigation() as any;
@@ -55,14 +57,34 @@ export default function Block({
   }, [navigation]);
 
   return (
-    <Animated.View style={[{...styles.block}, blockStyle, blockHover]}>
+    <Animated.View
+      style={[
+        {
+          ...styles.block,
+          backgroundColor: COLORS[theme],
+          shadowColor: COLORS[theme],
+        },
+        blockStyle,
+        blockHover,
+      ]}
+    >
       <TouchableOpacity
         style={styles.blockWrapper}
-        onPress={onPress}
+        onPress={() => {
+          onPress && onPress();
+          scale.value = withSpring(0);
+        }}
         onPressIn={() => (scale.value = withSpring(1.1))}
-        onPressOut={() => (scale.value = withSpring(0))}
+        onPressOut={() => (scale.value = withSpring(1))}
       >
-        <Text style={styles.blockText}>{title}</Text>
+        <Text
+          style={{
+            ...styles.blockText,
+            color: theme === 'yellow' ? COLORS.black : COLORS.white,
+          }}
+        >
+          {title}
+        </Text>
       </TouchableOpacity>
     </Animated.View>
   );
@@ -70,11 +92,9 @@ export default function Block({
 
 const styles = StyleSheet.create({
   block: {
-    backgroundColor: COLORS.purple,
     width: wp('44%'),
     height: 80,
     borderRadius: 30,
-    shadowColor: COLORS.purple,
     marginTop: 10,
     marginBottom: 10,
     ...SHADOW,
@@ -87,7 +107,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   blockText: {
-    color: COLORS.white,
     fontSize: 20,
   },
 });
