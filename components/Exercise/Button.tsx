@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {impactAsync} from '../../utils/haptics';
+import {COLORS} from '../../constants/theme';
 
 type ExerciseButtonProps = {
   beginExercise: boolean;
@@ -49,25 +50,23 @@ export default function ExerciseButton({
   );
 }
 
-const purple = 'rgba(87, 92, 255, 0.5)';
-
 const styles = StyleSheet.create({
   button: {
     flex: 0.4,
   },
   buttonInnerWrap: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: purple,
+    backgroundColor: COLORS.lightPurple,
   },
   buttonInnerMask: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     borderTopLeftRadius: 75,
   },
   btn: {
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: 'rgba(12, 13, 52, 0.07)',
+    backgroundColor: COLORS.lightGrey,
     top: 100,
     width: 250,
     borderRadius: 25,
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
   btnText: {
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#111',
+    color: COLORS.black,
     fontSize: 20,
     padding: 10,
   },
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     top: 85,
     borderRadius: 25,
-    color: '#111',
+    color: COLORS.black,
     fontSize: 17,
   },
 });

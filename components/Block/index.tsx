@@ -6,6 +6,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
+import {COLORS, SHADOW} from '../../constants/theme';
 
 export default function Block({
   title,
@@ -45,21 +46,15 @@ export default function Block({
 
 const styles = StyleSheet.create({
   block: {
-    backgroundColor: '#575CFF',
+    backgroundColor: COLORS.purple,
     width: '25%',
     height: 80,
     borderRadius: 30,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 15,
-    shadowColor: '#575CFF',
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.43,
-    shadowRadius: 9.51,
-    elevation: 15,
+    shadowColor: COLORS.purple,
+    ...SHADOW,
   },
   blockWrapper: {
     display: 'flex',
@@ -69,7 +64,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   blockText: {
-    color: '#FFFFFF',
+    color: COLORS.white,
     fontSize: 20,
   },
 });

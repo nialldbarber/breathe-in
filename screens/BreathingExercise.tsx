@@ -17,10 +17,7 @@ import ExerciseButton from '../components/Exercise/Button';
 import ExerciseTitle from '../components/Exercise/Title';
 import Steps from '../components/Exercise/Steps';
 import {sToM, getTime} from '../utils/time';
-
-const WIDTH = 300;
-const HEIGHT = 300;
-const ORIGINAL_SIZE = WIDTH / 3;
+import {COLORS, SHADOW, WIDTH, HEIGHT, ORIGINAL_SIZE} from '../constants/theme';
 
 export default function BreathingExercise({route}: {route: any}) {
   const {navigate} = useNavigation() as any;
@@ -116,7 +113,7 @@ export default function BreathingExercise({route}: {route: any}) {
       <Steps {...{exercise}} />
       <View style={styles.outerCircleContainer}>
         <TouchableOpacity style={styles.back} onPress={() => navigate('Home')}>
-          <Icon name="arrow-back" type="material" color="#fff" />
+          <Icon name="arrow-back" type="material" color={COLORS.white} />
         </TouchableOpacity>
         {beginExercise ? (
           <Text style={styles.timer}>{getTime(seconds)}</Text>
@@ -140,17 +137,14 @@ export default function BreathingExercise({route}: {route: any}) {
   );
 }
 
-const purple = 'rgba(87, 92, 255, 0.5)';
-const darkerPurple = 'rgba(87, 92, 255, 0.9)';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
   },
   timer: {
     position: 'absolute',
-    color: '#fff',
+    color: COLORS.white,
     fontSize: 20,
     top: 50,
   },
@@ -158,7 +152,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     left: 0,
-    zIndex: 999,
     width: 100,
     height: 100,
   },
@@ -166,7 +159,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: purple,
+    backgroundColor: COLORS.lightPurple,
     borderBottomRightRadius: 75,
   },
   outerCircle: {
@@ -177,19 +170,13 @@ const styles = StyleSheet.create({
     width: WIDTH,
     height: HEIGHT,
     borderRadius: WIDTH / 2,
-    backgroundColor: '#fff',
-    shadowColor: '#575CFF',
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.43,
-    shadowRadius: 9.51,
-    elevation: 15,
+    backgroundColor: COLORS.white,
+    shadowColor: COLORS.purple,
+    ...SHADOW,
   },
   innerCircle: {
     position: 'absolute',
-    backgroundColor: darkerPurple,
+    backgroundColor: COLORS.darkerPurple,
   },
   instructions: {
     position: 'absolute',

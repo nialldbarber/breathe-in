@@ -11,13 +11,14 @@ import Animated, {
 import Block from '../components/Block';
 import {RootStackParamList} from '../App';
 import {CONFIG} from '../constants/exercises';
+import {COLORS} from '../constants/theme';
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function HomeScreen() {
   const navigation = useNavigation<homeScreenProp>();
-  const color = useSharedValue<string | number>('#fff');
-  const subColor = useSharedValue<string | number>('#fff');
+  const color = useSharedValue<string | number>(COLORS.white);
+  const subColor = useSharedValue<string | number>(COLORS.white);
 
   const colorStyle = useAnimatedStyle(() => ({
     color: color.value,
@@ -28,8 +29,11 @@ export default function HomeScreen() {
   }));
 
   useEffect(() => {
-    color.value = withTiming('#111', {duration: 1000});
-    subColor.value = withDelay(1000, withTiming('#111', {duration: 1000}));
+    color.value = withTiming(COLORS.black, {duration: 1000});
+    subColor.value = withDelay(
+      1000,
+      withTiming(COLORS.black, {duration: 1000})
+    );
   }, []);
 
   const renderItem = ({item: {exerciseName, page, exercise, delay}}: any) => (
@@ -59,9 +63,9 @@ export default function HomeScreen() {
         <FlatList
           data={CONFIG}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={({id}) => id}
           numColumns={3}
-          columnWrapperStyle={{flex: 1, justifyContent: 'center'}}
+          columnWrapperStyle={styles.flatList}
         />
       </View>
     </SafeAreaView>
@@ -71,7 +75,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -88,6 +92,10 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 20,
+  },
+  flatList: {
+    flex: 1,
+    justifyContent: 'center',
   },
   blockContainer: {
     flex: 3,

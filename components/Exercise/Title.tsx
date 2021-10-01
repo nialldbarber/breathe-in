@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import {COLORS} from '../../constants/theme';
 
 type ExerciseTitleProps = {
   title: string;
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 55,
-    color: '#fff',
+    color: COLORS.white,
     marginRight: 30,
   },
 });

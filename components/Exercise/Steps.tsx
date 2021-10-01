@@ -1,5 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {COLORS} from '../../constants/theme';
 
 type StepsProps = {
   exercise: number[];
@@ -19,12 +24,12 @@ const styles = StyleSheet.create({
   exercise: {
     position: 'absolute',
     transform: [{rotate: '-90deg'}],
-    top: 470,
-    right: -55,
+    top: hp('50%'),
+    right: wp('-12%'),
   },
   exerciseNode: {
-    color: '#575CFF',
-    fontSize: 35,
+    color: COLORS.purple,
+    fontSize: wp('8%'),
     fontWeight: '500',
     letterSpacing: 3,
   },
