@@ -6,6 +6,7 @@ import {
   View,
   FlatList,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -19,6 +20,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
+import {Icon} from 'react-native-elements';
 import Block from '../components/Block';
 import {RootStackParamList} from '../App';
 import {CONFIG} from '../constants/exercises';
@@ -66,6 +68,15 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('hello');
+            navigation.navigate('Modal');
+          }}
+          style={styles.modal}
+        >
+          <Icon name="info" type="material" color={COLORS.black} />
+        </TouchableOpacity>
         <View style={styles.textWrapper}>
           <Animated.Text style={[styles.text, colorStyle]}>
             Hey, there!
@@ -106,6 +117,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  modal: {
+    position: 'absolute',
+    top: hp('7%'),
+    right: wp('5%'),
+    zIndex: 999,
   },
   textWrapper: {
     flex: 2,
