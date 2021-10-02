@@ -105,6 +105,7 @@ export default function BreathingExercise({route}: {route: any}) {
     setSeconds(0);
     setBeginExercise(false);
     innerCircle.value = withSpring(ORIGINAL_SIZE);
+    instructions.value = '';
   }
 
   return (

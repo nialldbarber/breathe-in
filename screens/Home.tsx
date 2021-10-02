@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Text,
   View,
@@ -65,7 +64,7 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <View style={styles.textWrapper}>
           <Animated.Text style={[styles.text, colorStyle]}>
@@ -79,38 +78,25 @@ export default function HomeScreen() {
           <View key={id} style={styles.blockContainer}>
             <ImageBackground
               source={image}
-              style={{
-                flex: 1,
-                height: hp('18%'),
-                width: wp('100%'),
-                justifyContent: 'center',
-              }}
+              style={styles.imageBackground}
               resizeMode="cover"
             >
-              <Text
-                style={{
-                  color: COLORS.white,
-                  fontSize: wp('10%'),
-                  fontWeight: '500',
-                  paddingLeft: 35,
-                }}
-              >
-                {title}
-              </Text>
+              <Text style={styles.header}>{title}</Text>
             </ImageBackground>
-            <View>
+            <View style={styles.mask} />
+            <View style={styles.flatListContainer}>
               <FlatList
                 data={config}
                 renderItem={renderItem}
                 keyExtractor={({id}) => id}
-                numColumns={3}
+                numColumns={2}
                 columnWrapperStyle={styles.blocks}
               />
             </View>
           </View>
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -123,9 +109,9 @@ const styles = StyleSheet.create({
   },
   textWrapper: {
     flex: 2,
-    marginTop: 30,
-    paddingLeft: 40,
-    paddingRight: 40,
+    marginTop: hp('8%'),
+    paddingLeft: wp('7%'),
+    paddingRight: wp('7%'),
   },
   text: {
     fontSize: wp('12%'),
@@ -135,6 +121,29 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: wp('4.5%'),
   },
+  imageBackground: {
+    flex: 1,
+    height: hp('18%'),
+    width: wp('100%'),
+    justifyContent: 'center',
+    opacity: 0.75,
+  },
+  header: {
+    color: COLORS.white,
+    fontSize: wp('10%'),
+    fontWeight: '500',
+    paddingLeft: 35,
+  },
+  mask: {
+    position: 'absolute',
+    top: hp('15%'),
+    left: wp('-150%'),
+    backgroundColor: COLORS.white,
+    height: hp('250%'),
+    width: wp('400%'),
+    borderRadius: wp('250%'),
+    borderBottomRightRadius: 0,
+  },
   blockContainer: {
     justifyContent: 'center',
     marginTop: 40,
@@ -143,6 +152,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    padding: 20,
+  },
+  flatListContainer: {
+    margin: wp('5%'),
+    paddingBottom: 0,
   },
 });

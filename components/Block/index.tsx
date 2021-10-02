@@ -1,10 +1,7 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -12,7 +9,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {COLORS, SHADOW} from '../../constants/theme';
+import {COLORS} from '../../constants/theme';
 
 export default function Block({
   title,
@@ -97,7 +94,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginTop: 10,
     marginBottom: 10,
-    ...SHADOW,
   },
   blockWrapper: {
     display: 'flex',

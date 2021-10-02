@@ -34,28 +34,60 @@ export const CALM_CONFIG: ConfigT[] = [
     delay: 800,
     theme: 'blue',
   },
+  {
+    id: 4,
+    page,
+    exerciseName: 'Deep',
+    exercise: [5, 0, 5, 0],
+    delay: 1200,
+    theme: 'blue',
+  },
 ];
 
 export const AWAKE_CONFIG: ConfigT[] = [
   {
-    id: 4,
+    id: 200,
     page,
     exerciseName: 'Awake',
     exercise: [6, 0, 2, 0],
-    delay: 1200,
+    delay: 1600,
+    theme: 'yellow',
+  },
+  {
+    id: 201,
+    page,
+    exerciseName: 'Bliss',
+    exercise: [6, 0, 2, 0],
+    delay: 2000,
+    theme: 'yellow',
+  },
+  {
+    id: 200,
+    page,
+    exerciseName: 'Awake',
+    exercise: [6, 0, 2, 0],
+    delay: 1600,
+    theme: 'yellow',
+  },
+  {
+    id: 201,
+    page,
+    exerciseName: 'Bliss',
+    exercise: [6, 0, 2, 0],
+    delay: 2000,
     theme: 'yellow',
   },
 ];
 
 export const CONFIG = [
   {
-    id: 100,
+    id: 300,
     title: 'Calm',
     config: CALM_CONFIG,
     image: require('../assets/exercises/calm.jpg'),
   },
   {
-    id: 101,
+    id: 301,
     title: 'Awake',
     config: AWAKE_CONFIG,
     image: require('../assets/exercises/awake.jpg'),
