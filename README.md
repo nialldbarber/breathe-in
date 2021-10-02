@@ -1,7 +1,8 @@
 Todos:
 
+- [ ] buzz for exercise intervals
 - [ ] instructions
-- [ ] breathing times, EG 4, 4, 4, 4
+- [x] breathing times, EG 4, 4, 4, 4
 - [ ] countdown before exercise starts
 - [ ] dark mode
 - [ ] custom breathing exercises

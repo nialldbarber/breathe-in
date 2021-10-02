@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Animated, {
-  Easing,
   useSharedValue,
   useAnimatedStyle,
   useDerivedValue,
@@ -22,6 +21,8 @@ import ExerciseTitle from '../components/Exercise/Title';
 import Steps from '../components/Exercise/Steps';
 import {sToM, getTime} from '../utils/time';
 import {COLORS, SHADOW, WIDTH, HEIGHT, ORIGINAL_SIZE} from '../constants/theme';
+import {impactAsync} from '../utils/haptics';
+import {getAnimatedTextFormatted} from '../utils/animated-text';
 
 export default function BreathingExercise({route}: {route: any}) {
   const {navigate} = useNavigation() as any;
@@ -49,17 +50,11 @@ export default function BreathingExercise({route}: {route: any}) {
       innerCircle.value = withRepeat(
         withSequence(
           // out breath
-          withTiming(WIDTH, {
-            duration: sToM(exercise[0]),
-            easing: Easing.linear,
-          }),
+          withTiming(WIDTH, {duration: sToM(exercise[0])}),
           // out breath
           withTiming(WIDTH, {duration: sToM(exercise[1])}),
           // in breathe
-          withTiming(ORIGINAL_SIZE, {
-            duration: sToM(exercise[2]),
-            easing: Easing.linear,
-          }),
+          withTiming(ORIGINAL_SIZE, {duration: sToM(exercise[2])}),
           // in breathe
           withTiming(ORIGINAL_SIZE, {duration: sToM(exercise[3])})
         ),
@@ -108,6 +103,20 @@ export default function BreathingExercise({route}: {route: any}) {
     instructions.value = '';
   }
 
+  useEffect(() => {
+    const str = getAnimatedTextFormatted(instructions.value);
+
+    if (str === 'In' || str === 'Out') {
+      impactAsync('medium');
+      setTimeout(() => {
+        impactAsync('medium');
+      }, 50);
+      setTimeout(() => {
+        impactAsync('medium');
+      }, 100);
+    }
+  }, [instructions.value]);
+
   return (
     <View style={styles.container}>
       <Steps {...{exercise, theme}} />
@@ -149,7 +158,7 @@ export default function BreathingExercise({route}: {route: any}) {
               <ReText
                 text={animatedText}
                 style={{
-                  color: COLORS.white,
+                  color: theme === 'yellow' ? COLORS.lightBlack : COLORS.white,
                   fontSize: 25,
                 }}
               />

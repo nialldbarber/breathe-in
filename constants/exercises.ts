@@ -79,17 +79,34 @@ export const AWAKE_CONFIG: ConfigT[] = [
   },
 ];
 
-export const CONFIG = [
+export const NIGHT_TIME_CONFIG: ConfigT[] = [
   {
     id: 300,
+    page,
+    exerciseName: 'Sleep',
+    exercise: [6, 0, 2, 0],
+    delay: 2400,
+    theme: 'purple',
+  },
+];
+
+export const CONFIG = [
+  {
+    id: 1000,
     title: 'Calm',
     config: CALM_CONFIG,
     image: require('../assets/exercises/calm.jpg'),
   },
   {
-    id: 301,
+    id: 1001,
     title: 'Awake',
     config: AWAKE_CONFIG,
     image: require('../assets/exercises/awake.jpg'),
+  },
+  {
+    id: 1002,
+    title: 'Night',
+    config: NIGHT_TIME_CONFIG,
+    image: require('../assets/exercises/night-time.jpg'),
   },
 ];

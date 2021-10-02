@@ -13,7 +13,7 @@ export default function ExerciseTitle({title, theme}: ExerciseTitleProps) {
       <Text
         style={{
           ...styles.title,
-          color: theme === 'yellow' ? COLORS.black : COLORS.white,
+          color: theme === 'yellow' ? COLORS.lightBlack : COLORS.white,
         }}
       >
         {title}

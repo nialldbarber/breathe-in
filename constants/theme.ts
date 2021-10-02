@@ -14,6 +14,7 @@ export const COLORS: Record<string, string> = {
   lightyellow: 'rgba(255, 238, 87, 0.5)',
   darkeryellow: 'rgba(255, 238, 87, 0.9)',
 
+  lightBlack: '#555',
   lightGrey: 'rgba(12, 13, 52, 0.07)',
 };
 
