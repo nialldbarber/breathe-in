@@ -48,7 +48,7 @@ export default function Block({
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      scale.value = withSpring(1, {stiffness: 120});
+      scale.value = withTiming(1);
     });
     return unsubscribe;
   }, [navigation]);

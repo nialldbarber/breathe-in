@@ -1,5 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withSpring,
+  withDelay,
+} from 'react-native-reanimated';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -22,6 +29,29 @@ export default function ExerciseButton({
   action,
   theme,
 }: ExerciseButtonProps) {
+  const btnOpacity = useSharedValue<number>(0);
+  const msgOpacity = useSharedValue<number>(0);
+
+  const buttonStyle = useAnimatedStyle(() => ({
+    opacity: btnOpacity.value,
+  }));
+
+  const messageStyles = useAnimatedStyle(() => ({
+    opacity: msgOpacity.value,
+  }));
+
+  useEffect(() => {
+    msgOpacity.value = withTiming(1, {duration: 1500});
+
+    setTimeout(() => {
+      msgOpacity.value = withTiming(0);
+    }, 3000);
+
+    setTimeout(() => {
+      btnOpacity.value = withTiming(1, {duration: 1500});
+    }, 3200);
+  }, []);
+
   return (
     <View style={styles.button}>
       <View
@@ -31,29 +61,33 @@ export default function ExerciseButton({
         }}
       >
         <View style={styles.buttonInnerMask}>
-          <Text style={[{...styles.message}, {opacity: hasBegun ? 0 : 1}]}>
+          <Animated.Text style={[styles.message, messageStyles]}>
             Take a breath and...
-          </Text>
+          </Animated.Text>
           {beginExercise ? (
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                reset();
-                impactAsync('heavy');
-              }}
-            >
-              <Text style={styles.btnText}>Stop</Text>
-            </TouchableOpacity>
+            <Animated.View style={buttonStyle}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  reset();
+                  impactAsync('heavy');
+                }}
+              >
+                <Text style={styles.btnText}>Stop</Text>
+              </TouchableOpacity>
+            </Animated.View>
           ) : (
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => {
-                action();
-                impactAsync('heavy');
-              }}
-            >
-              <Text style={styles.btnText}>Begin</Text>
-            </TouchableOpacity>
+            <Animated.View style={buttonStyle}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  action();
+                  impactAsync('heavy');
+                }}
+              >
+                <Text style={styles.btnText}>Begin</Text>
+              </TouchableOpacity>
+            </Animated.View>
           )}
         </View>
       </View>
@@ -63,7 +97,8 @@ export default function ExerciseButton({
 
 const styles = StyleSheet.create({
   button: {
-    flex: 0.35,
+    // flex: 0.35,
+    height: hp('25%'),
   },
   buttonInnerWrap: {
     ...StyleSheet.absoluteFillObject,
@@ -77,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     backgroundColor: COLORS.lightGrey,
-    top: hp('9%'),
+    top: hp('7.75%'),
     width: 250,
     borderRadius: 25,
   },
@@ -91,7 +126,7 @@ const styles = StyleSheet.create({
   message: {
     alignItems: 'center',
     alignSelf: 'center',
-    top: hp('8%'),
+    top: hp('11.25%'),
     borderRadius: 25,
     color: COLORS.black,
     fontSize: 17,

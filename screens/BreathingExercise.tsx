@@ -1,6 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import Animated from 'react-native-reanimated';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -39,6 +43,16 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
 
   useGetHaptics(instructions);
 
+  const test = useSharedValue(0);
+
+  const testStyles = useAnimatedStyle(() => ({
+    opacity: test.value,
+  }));
+
+  React.useEffect(() => {
+    test.value = withTiming(1);
+  }, []);
+
   return (
     <View style={styles.container}>
       {/* <Steps {...{exercise, theme}} /> */}
@@ -48,7 +62,10 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
           backgroundColor: COLORS[`light${theme}`],
         }}
       >
-        <TouchableOpacity style={styles.back} onPress={() => navigate('Home')}>
+        <TouchableOpacity
+          style={[{...styles.back}, testStyles]}
+          onPress={() => navigate('Home')}
+        >
           <Icon
             name="arrow-back"
             type="material"
