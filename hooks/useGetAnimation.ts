@@ -6,6 +6,7 @@ import Animated, {
   withTiming,
   withRepeat,
   withSequence,
+  withSpring,
 } from 'react-native-reanimated';
 import {sToM} from '../utils/time';
 import {WIDTH, ORIGINAL_SIZE} from '../constants/theme';
@@ -15,8 +16,7 @@ type AnimationT = {
   seconds: number;
   beginExercise: boolean;
   handleBeginExercise: (cond: boolean) => void;
-  handleSetSeconds: (cond: number) => void;
-  innerCircle: Animated.SharedValue<Instruct>;
+  reset: () => void;
   instructions: Animated.SharedValue<Instruct>;
   innerCircleStyles: Animated.AnimatedStyleProp<{
     width: number;
@@ -122,14 +122,19 @@ export default function useGetAnimation(
   }, [beginExercise, seconds]);
 
   const handleBeginExercise = (cond: boolean): void => setBeginExercise(cond);
-  const handleSetSeconds = (cond: number): void => setSeconds(cond);
+
+  function reset(): void {
+    setSeconds(0);
+    handleBeginExercise(false);
+    innerCircle.value = withSpring(ORIGINAL_SIZE);
+    instructions.value = '';
+  }
 
   return {
     seconds,
     beginExercise,
     handleBeginExercise,
-    handleSetSeconds,
-    innerCircle,
+    reset,
     instructions,
     innerCircleStyles,
     animatedText,

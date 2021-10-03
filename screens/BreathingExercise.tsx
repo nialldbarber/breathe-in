@@ -25,19 +25,11 @@ export default function BreathingExercise({route}: {route: any}) {
     seconds,
     beginExercise,
     handleBeginExercise,
-    handleSetSeconds,
-    innerCircle,
+    reset,
     instructions,
     innerCircleStyles,
     animatedText,
   } = useGetAnimation(type, exercise);
-
-  function reset(): void {
-    handleSetSeconds(0);
-    handleBeginExercise(false);
-    innerCircle.value = withSpring(ORIGINAL_SIZE);
-    instructions.value = '';
-  }
 
   useGetHaptics(instructions);
 
