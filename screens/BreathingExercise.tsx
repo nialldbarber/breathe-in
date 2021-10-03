@@ -31,7 +31,7 @@ export default function BreathingExercise({route}: {route: any}) {
   const [seconds, setSeconds] = useState(0);
 
   const {exerciseName, exercise, theme} = route.params;
-  const [beginExercise, setBeginExercise] = useState(false);
+  const [beginExercise, setBeginExercise] = useState<boolean>(false);
   const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
   const instructions = useSharedValue<Instruct>('');
 
@@ -41,7 +41,7 @@ export default function BreathingExercise({route}: {route: any}) {
     borderRadius: innerCircle.value / 2,
   }));
 
-  const animatedText = useDerivedValue(() => {
+  const animatedText = useDerivedValue<string>((): string => {
     let str: Instruct = instructions.value;
     str = str.toString().replace(/NaN/g, '');
     return str;
@@ -98,7 +98,7 @@ export default function BreathingExercise({route}: {route: any}) {
     }
   }, [beginExercise, seconds]);
 
-  function reset() {
+  function reset(): void {
     setSeconds(0);
     setBeginExercise(false);
     innerCircle.value = withSpring(ORIGINAL_SIZE);
