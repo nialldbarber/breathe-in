@@ -5,7 +5,6 @@ import {
   Text,
   View,
   FlatList,
-  ImageBackground,
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -29,7 +28,7 @@ import {COLORS} from '../constants/theme';
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function HomeScreen() {
-  const navigation = useNavigation<homeScreenProp>();
+  const {navigate} = useNavigation<homeScreenProp>();
   const color = useSharedValue<string | number>(COLORS.white);
   const subColor = useSharedValue<string | number>(COLORS.white);
 
@@ -55,7 +54,7 @@ export default function HomeScreen() {
     <Block
       title={exerciseName}
       onPress={() =>
-        navigation.navigate(page, {
+        navigate(page, {
           exerciseName,
           exercise,
           theme,
@@ -70,11 +69,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ScrollView>
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Modal', {
-              screen: 'home',
-            });
-          }}
+          onPress={() => navigate('InfoModal')}
           style={styles.modal}
         >
           <Icon name="info" type="material" color={COLORS.black} />

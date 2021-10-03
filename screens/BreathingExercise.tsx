@@ -49,6 +49,16 @@ export default function BreathingExercise({route}: {route: any}) {
             color={theme === 'yellow' ? COLORS.black : COLORS.white}
           />
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.info}
+          onPress={() => navigate('BreathingInfoModal')}
+        >
+          <Icon
+            name="info"
+            type="material"
+            color={theme === 'yellow' ? COLORS.black : COLORS.white}
+          />
+        </TouchableOpacity>
         {beginExercise ? (
           <Text
             style={{
@@ -106,6 +116,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: hp('7%'),
     left: wp('-5%'),
+    width: 100,
+    height: 100,
+  },
+  info: {
+    position: 'absolute',
+    top: hp('7%'),
+    right: wp('-5%'),
     width: 100,
     height: 100,
   },

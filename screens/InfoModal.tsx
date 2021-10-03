@@ -8,30 +8,15 @@ import {
 import {Icon} from 'react-native-elements';
 import {COLORS} from '../constants/theme';
 
-export default function ModalScreen({screen}: {screen: string}) {
-  const {navigate} = useNavigation() as any;
-
-  // TODO:
-  // if home page
-  const home = (
-    <View>
-      <Text>Homepage modal</Text>
-    </View>
-  );
-
-  // if exercise page
-  const modal = (
-    <View>
-      <Text>Homepage modal</Text>
-    </View>
-  );
+export default function InfoModalScreen() {
+  const {goBack} = useNavigation() as any;
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.exit} onPress={() => navigate('Home')}>
+      <TouchableOpacity style={styles.exit} onPress={goBack}>
         <Icon name="close" type="material" color={COLORS.black} />
       </TouchableOpacity>
-      <Text style={styles.title}>{screen === 'home' ? home : modal}</Text>
+      <Text style={styles.title}>Home</Text>
       <View style={styles.separator} />
     </View>
   );

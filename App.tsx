@@ -3,35 +3,42 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './screens/Home';
 import BreathingExercise from './screens/BreathingExercise';
-import ModalScreen from './screens/Modal';
+import InfoModalScreen from './screens/InfoModal';
+import BreathingInfoModal from './screens/BreathingInfoModal';
 
 export type RootStackParamList = {
   Home: undefined;
   BreathingExercise: any;
-  Modal: any;
+  InfoModal: any;
+  BreathingInfoModal: any;
 };
 
 const Stack = createNativeStackNavigator();
+
+const options = {headerShown: false};
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{headerShown: false}}
-        />
+        <Stack.Screen name="Home" component={HomeScreen} {...{options}} />
         <Stack.Screen
           name="BreathingExercise"
           component={BreathingExercise}
-          options={{headerShown: false}}
+          {...{options}}
         />
         <Stack.Group screenOptions={{presentation: 'modal'}}>
           <Stack.Screen
-            name="Modal"
-            component={ModalScreen}
-            options={{headerShown: false}}
+            name="InfoModal"
+            component={InfoModalScreen}
+            {...{options}}
+          />
+        </Stack.Group>
+        <Stack.Group screenOptions={{presentation: 'modal'}}>
+          <Stack.Screen
+            name="BreathingInfoModal"
+            component={BreathingInfoModal}
+            {...{options}}
           />
         </Stack.Group>
       </Stack.Navigator>
