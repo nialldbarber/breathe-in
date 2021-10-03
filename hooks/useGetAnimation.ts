@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {
+import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useDerivedValue,
@@ -11,7 +11,25 @@ import {sToM} from '../utils/time';
 import {WIDTH, ORIGINAL_SIZE} from '../constants/theme';
 import {Instruct} from '../screens/BreathingExercise';
 
-export default function useGetAnimation(type: number, exercise: number[]) {
+type AnimationT = {
+  seconds: number;
+  beginExercise: boolean;
+  handleBeginExercise: (cond: boolean) => void;
+  handleSetSeconds: (cond: number) => void;
+  innerCircle: Animated.SharedValue<Instruct>;
+  instructions: Animated.SharedValue<Instruct>;
+  innerCircleStyles: Animated.AnimatedStyleProp<{
+    width: number;
+    height: number;
+    borderRadius: number;
+  }>;
+  animatedText: Animated.DerivedValue<string>;
+};
+
+export default function useGetAnimation(
+  type: number,
+  exercise: number[]
+): AnimationT {
   const [seconds, setSeconds] = useState<number>(0);
   const [beginExercise, setBeginExercise] = useState<boolean>(false);
   const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
@@ -23,7 +41,7 @@ export default function useGetAnimation(type: number, exercise: number[]) {
     borderRadius: innerCircle.value / 2,
   }));
 
-  const animatedText = useDerivedValue<string>((): string => {
+  const animatedText = useDerivedValue(() => {
     let str: Instruct = instructions.value;
     str = str.toString().replace(/NaN/g, '');
     return str;
@@ -103,8 +121,8 @@ export default function useGetAnimation(type: number, exercise: number[]) {
     }
   }, [beginExercise, seconds]);
 
-  const handleBeginExercise = (cond: boolean) => setBeginExercise(cond);
-  const handleSetSeconds = (cond: number) => setSeconds(cond);
+  const handleBeginExercise = (cond: boolean): void => setBeginExercise(cond);
+  const handleSetSeconds = (cond: number): void => setSeconds(cond);
 
   return {
     seconds,
