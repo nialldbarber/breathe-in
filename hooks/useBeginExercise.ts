@@ -1,7 +1,14 @@
 import {useState, useEffect} from 'react';
 
-export default function useBeginExercise() {
-  const [seconds, setSeconds] = useState(0);
+type BeginT = {
+  seconds: number;
+  beginExercise: boolean;
+  handleBeginExercise: (cond: boolean) => void;
+  handleSetSeconds: (cond: number) => void;
+};
+
+export default function useBeginExercise(): BeginT {
+  const [seconds, setSeconds] = useState<number>(0);
   const [beginExercise, setBeginExercise] = useState<boolean>(false);
 
   useEffect(() => {

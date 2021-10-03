@@ -50,7 +50,7 @@ export default function HomeScreen() {
   }, []);
 
   const renderItem = ({
-    item: {exerciseName, page, exercise, delay, theme},
+    item: {exerciseName, page, exercise, type, delay, theme},
   }: any) => (
     <Block
       title={exerciseName}
@@ -59,6 +59,7 @@ export default function HomeScreen() {
           exerciseName,
           exercise,
           theme,
+          type,
         })
       }
       {...{theme, delay}}

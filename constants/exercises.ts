@@ -5,6 +5,7 @@ export type ConfigT = {
   page: string;
   exerciseName: string;
   exercise: number[];
+  type?: number;
   delay: number;
   theme: string;
 };
@@ -15,6 +16,7 @@ export const CALM_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Box',
     exercise: [4, 4, 4, 4],
+    type: 4,
     delay: 0,
     theme: 'blue',
   },
@@ -23,6 +25,7 @@ export const CALM_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Box #2',
     exercise: [5, 5, 5, 5],
+    type: 4,
     delay: 400,
     theme: 'blue',
   },
@@ -31,6 +34,7 @@ export const CALM_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Calm',
     exercise: [4, 7, 8, 0],
+    type: 2,
     delay: 800,
     theme: 'blue',
   },
@@ -39,6 +43,7 @@ export const CALM_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Deep',
     exercise: [5, 0, 5, 0],
+    type: 1,
     delay: 1200,
     theme: 'blue',
   },
@@ -50,6 +55,7 @@ export const AWAKE_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Awake',
     exercise: [6, 0, 2, 0],
+    type: 1,
     delay: 1600,
     theme: 'yellow',
   },
@@ -58,6 +64,7 @@ export const AWAKE_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Bliss',
     exercise: [6, 0, 2, 0],
+    type: 1,
     delay: 2000,
     theme: 'yellow',
   },
@@ -66,6 +73,7 @@ export const AWAKE_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Awake',
     exercise: [6, 0, 2, 0],
+    type: 1,
     delay: 1600,
     theme: 'yellow',
   },
@@ -74,6 +82,7 @@ export const AWAKE_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Bliss',
     exercise: [6, 0, 2, 0],
+    type: 1,
     delay: 2000,
     theme: 'yellow',
   },
@@ -85,6 +94,7 @@ export const NIGHT_TIME_CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Sleep',
     exercise: [6, 0, 2, 0],
+    type: 1,
     delay: 2400,
     theme: 'purple',
   },
