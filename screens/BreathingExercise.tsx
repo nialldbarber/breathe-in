@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {
@@ -25,8 +25,8 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
     seconds,
     beginExercise,
     handleBeginExercise,
-    reset,
     instructions,
+    reset,
     innerCircleStyles,
     animatedText,
   } = useGetAnimation(type, exercise);

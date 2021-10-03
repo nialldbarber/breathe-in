@@ -10,14 +10,18 @@ export default function useGetHaptics(
   useEffect(() => {
     const str = getAnimatedTextFormatted(instructions.value);
 
-    if (str === 'In' || str === 'Out') {
-      impactAsync('medium');
+    if (str === 'In') {
+      impactAsync('light');
       setTimeout(() => {
-        impactAsync('medium');
+        impactAsync('light');
       }, 50);
-      setTimeout(() => {
-        impactAsync('medium');
-      }, 100);
+    } else if (str === 'Out') {
+      impactAsync('medium');
+      for (let i = 0; i < 100; i += 10) {
+        setTimeout(() => {
+          impactAsync('medium');
+        }, i);
+      }
     }
   }, [instructions.value]);
 }

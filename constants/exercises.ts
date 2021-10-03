@@ -1,6 +1,6 @@
-export const IN = 'IN';
-export const OUT = 'OUT';
-export const HOLD = 'HOLD';
+export const IN = 'In';
+export const OUT = 'Out';
+export const HOLD = 'Hold';
 
 const page = 'BreathingExercise';
 
