@@ -9,7 +9,7 @@ import {Icon} from 'react-native-elements';
 import {COLORS} from '../constants/theme';
 
 export default function BreathingInfoModalScreen() {
-  const {goBack} = useNavigation() as any;
+  const {goBack} = useNavigation();
 
   return (
     <View style={styles.container}>

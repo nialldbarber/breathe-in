@@ -1,13 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import {ReText} from 'react-native-redash';
 import {Icon} from 'react-native-elements';
+import {RootStackParamList} from '../App';
 import useGetAnimation from '../hooks/useGetAnimation';
 import useGetHaptics from '../hooks/useGetHaptics';
 import ExerciseButton from '../components/Exercise/Button';
@@ -17,9 +19,13 @@ import {getTime} from '../utils/time';
 import {COLORS, SHADOW, WIDTH, HEIGHT} from '../constants/theme';
 
 export type Instruct = number | string;
+type breathingScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'BreathingExercise'
+>;
 
 export default function BreathingExerciseScreen({route}: {route: any}) {
-  const {navigate} = useNavigation() as any;
+  const {navigate} = useNavigation<breathingScreenProp>();
   const {exerciseName, exercise, type, theme} = route.params;
   const {
     seconds,
