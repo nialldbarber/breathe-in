@@ -92,11 +92,9 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
         </View>
       </View>
       <ExerciseButton
-        beginExercise={beginExercise}
-        reset={() => reset()}
+        {...{beginExercise, reset, theme}}
         action={() => handleBeginExercise(true)}
         hasBegun={beginExercise}
-        theme={theme}
       />
     </View>
   );
