@@ -138,13 +138,13 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: wp('4.5%'),
   },
-  // imageBackground: {
-  //   flex: 1,
-  //   height: hp('12%'),
-  //   width: wp('100%'),
-  //   justifyContent: 'center',
-  //   opacity: 0.75,
-  // },
+  imageBackground: {
+    // flex: 1,
+    // height: hp('12%'),
+    // width: wp('100%'),
+    // justifyContent: 'center',
+    // opacity: 0.75,
+  },
   header: {
     color: COLORS.black,
     fontSize: wp('10%'),

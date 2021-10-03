@@ -1,6 +1,6 @@
 const page = 'BreathingExercise';
 
-type ConfigT = {
+export type ConfigT = {
   id: number;
   page: string;
   exerciseName: string;

@@ -24,6 +24,8 @@ import {COLORS, SHADOW, WIDTH, HEIGHT, ORIGINAL_SIZE} from '../constants/theme';
 import {impactAsync} from '../utils/haptics';
 import {getAnimatedTextFormatted} from '../utils/animated-text';
 
+type Instruct = number | string;
+
 export default function BreathingExercise({route}: {route: any}) {
   const {navigate} = useNavigation() as any;
   const [seconds, setSeconds] = useState(0);
@@ -31,7 +33,7 @@ export default function BreathingExercise({route}: {route: any}) {
   const {exerciseName, exercise, theme} = route.params;
   const [beginExercise, setBeginExercise] = useState(false);
   const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
-  const instructions = useSharedValue<number | string>('');
+  const instructions = useSharedValue<Instruct>('');
 
   const innerCircleStyles = useAnimatedStyle(() => ({
     width: innerCircle.value,
@@ -40,8 +42,8 @@ export default function BreathingExercise({route}: {route: any}) {
   }));
 
   const animatedText = useDerivedValue(() => {
-    let str: any = instructions.value;
-    str = str.replace(/NaN/g, '');
+    let str: Instruct = instructions.value;
+    str = str.toString().replace(/NaN/g, '');
     return str;
   }, [beginExercise]);
 
@@ -53,9 +55,9 @@ export default function BreathingExercise({route}: {route: any}) {
           withTiming(WIDTH, {duration: sToM(exercise[0])}),
           // out breath
           withTiming(WIDTH, {duration: sToM(exercise[1])}),
-          // in breathe
+          // in breath
           withTiming(ORIGINAL_SIZE, {duration: sToM(exercise[2])}),
-          // in breathe
+          // in breath
           withTiming(ORIGINAL_SIZE, {duration: sToM(exercise[3])})
         ),
         -1,
