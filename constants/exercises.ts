@@ -95,18 +95,18 @@ export const CONFIG = [
     id: 1000,
     title: 'Calm',
     config: CALM_CONFIG,
-    image: require('../assets/exercises/calm.jpg'),
+    theme: 'blue',
   },
   {
     id: 1001,
     title: 'Awake',
     config: AWAKE_CONFIG,
-    image: require('../assets/exercises/awake.jpg'),
+    theme: 'yellow',
   },
   {
     id: 1002,
     title: 'Night',
     config: NIGHT_TIME_CONFIG,
-    image: require('../assets/exercises/night-time.jpg'),
+    theme: 'purple',
   },
 ];

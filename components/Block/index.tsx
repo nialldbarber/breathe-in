@@ -89,11 +89,11 @@ export default function Block({
 
 const styles = StyleSheet.create({
   block: {
-    width: wp('44%'),
+    width: wp('42%'),
     height: 80,
     borderRadius: 30,
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   blockWrapper: {
     display: 'flex',

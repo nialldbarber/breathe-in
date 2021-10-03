@@ -85,15 +85,15 @@ export default function HomeScreen() {
             Choose a breathing exercise from the list below
           </Animated.Text>
         </View>
-        {CONFIG.map(({id, title, config, image}) => (
+        {CONFIG.map(({id, title, config, theme}) => (
           <View key={id} style={styles.blockContainer}>
-            <ImageBackground
-              source={image}
-              style={styles.imageBackground}
-              resizeMode="cover"
+            <View
+              style={{
+                ...styles.imageBackground,
+              }}
             >
               <Text style={styles.header}>{title}</Text>
-            </ImageBackground>
+            </View>
             <View style={styles.mask} />
             <View style={styles.flatListContainer}>
               <FlatList
@@ -138,22 +138,22 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: wp('4.5%'),
   },
-  imageBackground: {
-    flex: 1,
-    height: hp('18%'),
-    width: wp('100%'),
-    justifyContent: 'center',
-    opacity: 0.75,
-  },
+  // imageBackground: {
+  //   flex: 1,
+  //   height: hp('12%'),
+  //   width: wp('100%'),
+  //   justifyContent: 'center',
+  //   opacity: 0.75,
+  // },
   header: {
-    color: COLORS.white,
+    color: COLORS.black,
     fontSize: wp('10%'),
-    fontWeight: '500',
+    fontWeight: '400',
     paddingLeft: 35,
   },
   mask: {
     position: 'absolute',
-    top: hp('15%'),
+    top: hp('7.5%'),
     left: wp('-150%'),
     backgroundColor: COLORS.white,
     height: hp('250%'),
