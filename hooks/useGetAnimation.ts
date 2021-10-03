@@ -8,8 +8,9 @@ import Animated, {
   withSequence,
   withSpring,
 } from 'react-native-reanimated';
-import {sToM} from '../utils/time';
+import {secToMill} from '../utils/time';
 import {WIDTH, ORIGINAL_SIZE} from '../constants/theme';
+import {IN, OUT, HOLD} from '../constants/exercises';
 import {Instruct} from '../screens/BreathingExercise';
 
 type AnimationT = {
@@ -52,13 +53,13 @@ export default function useGetAnimation(
       innerCircle.value = withRepeat(
         withSequence(
           // in breath
-          withTiming(WIDTH, {duration: sToM(exercise[0])}),
+          withTiming(WIDTH, {duration: secToMill(exercise[0])}),
           // hold
-          withTiming(WIDTH, {duration: sToM(exercise[1])}),
+          withTiming(WIDTH, {duration: secToMill(exercise[1])}),
           // out breath
-          withTiming(ORIGINAL_SIZE, {duration: sToM(exercise[2])}),
+          withTiming(ORIGINAL_SIZE, {duration: secToMill(exercise[2])}),
           // hold
-          withTiming(ORIGINAL_SIZE, {duration: sToM(exercise[3])})
+          withTiming(ORIGINAL_SIZE, {duration: secToMill(exercise[3])})
         ),
         -1,
         false
@@ -71,10 +72,10 @@ export default function useGetAnimation(
       if (type === 4) {
         instructions.value = withRepeat(
           withSequence(
-            withTiming('In', {duration: sToM(exercise[0])}),
-            withTiming('Hold', {duration: sToM(exercise[1])}),
-            withTiming('Out', {duration: sToM(exercise[2])}),
-            withTiming('Hold', {duration: sToM(exercise[3])})
+            withTiming(IN, {duration: secToMill(exercise[0])}),
+            withTiming(HOLD, {duration: secToMill(exercise[1])}),
+            withTiming(OUT, {duration: secToMill(exercise[2])}),
+            withTiming(HOLD, {duration: secToMill(exercise[3])})
           ),
           -1,
           false
@@ -82,9 +83,9 @@ export default function useGetAnimation(
       } else if (type === 3) {
         instructions.value = withRepeat(
           withSequence(
-            withTiming('In', {duration: sToM(exercise[0])}),
-            withTiming('Out', {duration: sToM(exercise[2])}),
-            withTiming('Hold', {duration: sToM(exercise[3])})
+            withTiming(IN, {duration: secToMill(exercise[0])}),
+            withTiming(OUT, {duration: secToMill(exercise[2])}),
+            withTiming(HOLD, {duration: secToMill(exercise[3])})
           ),
           -1,
           false
@@ -92,9 +93,9 @@ export default function useGetAnimation(
       } else if (type === 2) {
         instructions.value = withRepeat(
           withSequence(
-            withTiming('In', {duration: sToM(exercise[0])}),
-            withTiming('Hold', {duration: sToM(exercise[1])}),
-            withTiming('Out', {duration: sToM(exercise[2])})
+            withTiming(IN, {duration: secToMill(exercise[0])}),
+            withTiming(HOLD, {duration: secToMill(exercise[1])}),
+            withTiming(OUT, {duration: secToMill(exercise[2])})
           ),
           -1,
           false
@@ -102,8 +103,8 @@ export default function useGetAnimation(
       } else if (type === 1) {
         instructions.value = withRepeat(
           withSequence(
-            withTiming('In', {duration: sToM(exercise[0])}),
-            withTiming('Out', {duration: sToM(exercise[2])})
+            withTiming(IN, {duration: secToMill(exercise[0])}),
+            withTiming(OUT, {duration: secToMill(exercise[2])})
           ),
           -1,
           false
@@ -115,7 +116,7 @@ export default function useGetAnimation(
   useEffect(() => {
     if (beginExercise) {
       const interval = setInterval(() => {
-        setSeconds((seconds) => seconds + 1);
+        setSeconds((sec) => sec + 1);
       }, 1000);
       return () => clearInterval(interval);
     }

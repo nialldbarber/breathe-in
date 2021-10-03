@@ -1,3 +1,7 @@
+export const IN = 'IN';
+export const OUT = 'OUT';
+export const HOLD = 'HOLD';
+
 const page = 'BreathingExercise';
 
 export type ConfigT = {

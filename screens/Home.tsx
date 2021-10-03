@@ -71,8 +71,9 @@ export default function HomeScreen() {
       <ScrollView>
         <TouchableOpacity
           onPress={() => {
-            console.log('hello');
-            navigation.navigate('Modal');
+            navigation.navigate('Modal', {
+              screen: 'home',
+            });
           }}
           style={styles.modal}
         >

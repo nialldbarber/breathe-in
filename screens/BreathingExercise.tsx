@@ -35,7 +35,7 @@ export default function BreathingExercise({route}: {route: any}) {
 
   return (
     <View style={styles.container}>
-      <Steps {...{exercise, theme}} />
+      {/* <Steps {...{exercise, theme}} /> */}
       <View
         style={{
           ...styles.outerCircleContainer,

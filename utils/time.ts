@@ -1,4 +1,4 @@
-export const sToM = (seconds: number): number => seconds * 1000;
+export const secToMill = (seconds: number): number => seconds * 1000;
 
 export function getTime(time: number): string {
   let ticker;
