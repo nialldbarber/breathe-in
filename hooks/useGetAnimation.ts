@@ -8,6 +8,7 @@ import Animated, {
   withSequence,
   withSpring,
 } from 'react-native-reanimated';
+import useInterval from './useInterval';
 import {secToMill} from '../utils/time';
 import {WIDTH, ORIGINAL_SIZE} from '../constants/theme';
 import {IN, OUT, HOLD} from '../constants/exercises';
@@ -113,14 +114,7 @@ export default function useGetAnimation(
     }
   }, [beginExercise]);
 
-  useEffect(() => {
-    if (beginExercise) {
-      const interval = setInterval(() => {
-        setSeconds((sec) => sec + 1);
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [beginExercise, seconds]);
+  useInterval(() => setSeconds((sec) => sec + 1), 1000, beginExercise, seconds);
 
   const handleBeginExercise = (cond: boolean): void => setBeginExercise(cond);
 
