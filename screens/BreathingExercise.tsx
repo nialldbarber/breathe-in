@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Animated, {
   useSharedValue,
@@ -16,6 +16,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {ReText} from 'react-native-redash';
 import {Icon} from 'react-native-elements';
+import useBeginExercise from '../hooks/useBeginExercise';
 import ExerciseButton from '../components/Exercise/Button';
 import ExerciseTitle from '../components/Exercise/Title';
 import Steps from '../components/Exercise/Steps';
@@ -28,10 +29,9 @@ type Instruct = number | string;
 
 export default function BreathingExercise({route}: {route: any}) {
   const {navigate} = useNavigation() as any;
-  const [seconds, setSeconds] = useState(0);
-
   const {exerciseName, exercise, theme} = route.params;
-  const [beginExercise, setBeginExercise] = useState<boolean>(false);
+  const {seconds, beginExercise, handleSetSeconds, handleBeginExercise} =
+    useBeginExercise();
   const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
   const instructions = useSharedValue<Instruct>('');
 
@@ -89,18 +89,9 @@ export default function BreathingExercise({route}: {route: any}) {
     }
   }, [beginExercise]);
 
-  useEffect(() => {
-    if (beginExercise) {
-      const interval = setInterval(() => {
-        setSeconds(seconds + 1);
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [beginExercise, seconds]);
-
   function reset(): void {
-    setSeconds(0);
-    setBeginExercise(false);
+    handleSetSeconds(0);
+    handleBeginExercise(false);
     innerCircle.value = withSpring(ORIGINAL_SIZE);
     instructions.value = '';
   }
@@ -151,7 +142,6 @@ export default function BreathingExercise({route}: {route: any}) {
             style={[
               styles.innerCircle,
               {backgroundColor: COLORS[`darker${theme}`]},
-              ,
               innerCircleStyles,
             ]}
           />
@@ -171,7 +161,7 @@ export default function BreathingExercise({route}: {route: any}) {
       <ExerciseButton
         beginExercise={beginExercise}
         reset={() => reset()}
-        action={() => setBeginExercise(true)}
+        action={() => handleBeginExercise(true)}
         hasBegun={beginExercise}
         theme={theme}
       />
