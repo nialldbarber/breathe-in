@@ -4,8 +4,6 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  withSpring,
-  withDelay,
 } from 'react-native-reanimated';
 import {
   widthPercentageToDP as wp,
@@ -41,15 +39,13 @@ export default function ExerciseButton({
   }));
 
   useEffect(() => {
-    msgOpacity.value = withTiming(1, {duration: 1500});
-
+    msgOpacity.value = withTiming(1, {duration: 1000});
     setTimeout(() => {
       msgOpacity.value = withTiming(0);
-    }, 3000);
-
+    }, 1800);
     setTimeout(() => {
-      btnOpacity.value = withTiming(1, {duration: 1500});
-    }, 3200);
+      btnOpacity.value = withTiming(1, {duration: 1000});
+    }, 2000);
   }, []);
 
   return (
@@ -97,7 +93,6 @@ export default function ExerciseButton({
 
 const styles = StyleSheet.create({
   button: {
-    // flex: 0.35,
     height: hp('25%'),
   },
   buttonInnerWrap: {
