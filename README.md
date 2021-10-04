@@ -1,5 +1,7 @@
 Todos:
 
+- [ ] formalise imports
+- [ ] make prettier & eslint better
 - [ ] search bar for exercises
 - [ ] lottie animations
 - [ ] get first name from localstorage?

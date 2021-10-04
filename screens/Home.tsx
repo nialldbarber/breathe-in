@@ -10,6 +10,7 @@ import {
 import {useTheme} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import LottieView from 'lottie-react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -21,14 +22,17 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {Icon} from 'react-native-elements';
+import {getCurrentTime} from '../utils/getDate';
 import Block from '../components/Block';
 import {RootStackParamList} from '../components/Navigators/RootNavigator';
 import {CONFIG} from '../constants/exercises';
 
+const lottie = require('../assets/landscape.json');
+
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function HomeScreen() {
-  const {colors} = useTheme();
+  const {colors, normalize} = useTheme();
 
   const styles = StyleSheet.create({
     container: {
@@ -50,9 +54,8 @@ export default function HomeScreen() {
       paddingRight: wp('7%'),
     },
     text: {
-      fontSize: wp('12%'),
-      width: 200,
-      marginBottom: 70,
+      fontSize: wp('10%'),
+      width: wp('50%'),
     },
     subText: {
       fontSize: wp('4.5%'),
@@ -66,7 +69,7 @@ export default function HomeScreen() {
     },
     header: {
       color: colors.text,
-      fontSize: wp('10%'),
+      fontSize: wp('8%'),
       fontWeight: '400',
       paddingLeft: 35,
     },
@@ -92,6 +95,10 @@ export default function HomeScreen() {
     flatListContainer: {
       margin: wp('5%'),
       paddingBottom: 0,
+    },
+    lottie: {
+      alignSelf: 'center',
+      width: normalize(320, 400),
     },
   });
 
@@ -140,8 +147,9 @@ export default function HomeScreen() {
         </TouchableOpacity>
         <View style={styles.textWrapper}>
           <Animated.Text style={[styles.text, colorStyle]}>
-            Hey, there!
+            {getCurrentTime()}
           </Animated.Text>
+          <LottieView autoPlay loop style={styles.lottie} source={lottie} />
           <Animated.Text style={[styles.subText, subColorStyle]}>
             Choose a breathing exercise from the list below
           </Animated.Text>
