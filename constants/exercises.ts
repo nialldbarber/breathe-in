@@ -4,6 +4,32 @@ export const HOLD = 'Hold';
 
 const page = 'BreathingExercise';
 
+export const feelings = [
+  'activated',
+  'alleviated',
+  'awake',
+  'balanced',
+  'blissful',
+  'calm',
+  'clear',
+  'cool',
+  'dream',
+  'euphoric',
+  'energized',
+  'focused',
+  'pain relief',
+  'peaceful',
+  'recharged',
+  'relaxed',
+  'rise and shine',
+  'sleepy',
+  'stimulated',
+  'tranquil',
+  'uplifted',
+  'unwind',
+  'uplifted',
+];
+
 export type ConfigT = {
   id: number;
   page: string;
@@ -12,6 +38,7 @@ export type ConfigT = {
   type?: number;
   delay: number;
   theme: string;
+  tags?: string[];
 };
 
 export const CALM_CONFIG: ConfigT[] = [
@@ -23,6 +50,31 @@ export const CALM_CONFIG: ConfigT[] = [
     type: 4,
     delay: 0,
     theme: 'blue',
+    tags: [
+      'activated',
+      'alleviated',
+      'awake',
+      'balanced',
+      'blissful',
+      'calm',
+      'clear',
+      'cool',
+      'dream',
+      'euphoric',
+      'energized',
+      'focused',
+      'pain relief',
+      'peaceful',
+      'recharged',
+      'relaxed',
+      'rise and shine',
+      'sleepy',
+      'stimulated',
+      'tranquil',
+      'uplifted',
+      'unwind',
+      'uplifted',
+    ],
   },
   {
     id: 2,

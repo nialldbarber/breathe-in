@@ -25,7 +25,7 @@ import {Icon} from 'react-native-elements';
 import {getCurrentTime} from '../utils/getDate';
 import Block from '../components/Block';
 import {RootStackParamList} from '../components/Navigators/RootNavigator';
-import {CONFIG} from '../constants/exercises';
+import {CONFIG, feelings} from '../constants/exercises';
 
 const lottie = require('../assets/landscape.json');
 
@@ -45,7 +45,7 @@ export default function HomeScreen() {
       position: 'absolute',
       top: hp('7%'),
       right: wp('5%'),
-      zIndex: 999,
+      zIndex: 3,
     },
     textWrapper: {
       flex: 2,
@@ -60,37 +60,14 @@ export default function HomeScreen() {
     subText: {
       fontSize: wp('4.5%'),
     },
-    imageBackground: {
-      // flex: 1,
-      // height: hp('12%'),
-      // width: wp('100%'),
-      // justifyContent: 'center',
-      // opacity: 0.75,
-    },
     header: {
       color: colors.text,
       fontSize: wp('8%'),
       fontWeight: '400',
       paddingLeft: 35,
     },
-    mask: {
-      position: 'absolute',
-      top: hp('7.5%'),
-      left: wp('-150%'),
-      backgroundColor: colors.background,
-      height: hp('250%'),
-      width: wp('400%'),
-      borderRadius: wp('250%'),
-      borderBottomRightRadius: 0,
-    },
     blockContainer: {
       justifyContent: 'center',
-      marginTop: 40,
-    },
-    blocks: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
     },
     flatListContainer: {
       margin: wp('5%'),
@@ -99,6 +76,25 @@ export default function HomeScreen() {
     lottie: {
       alignSelf: 'center',
       width: normalize(320, 400),
+    },
+    badgeContainer: {
+      marginTop: 15,
+      marginBottom: 15,
+      // height: 35,
+    },
+    badge: {
+      backgroundColor: colors.primaryFaded,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 20,
+      marginRight: 10,
+      borderColor: colors.primary,
+      borderWidth: 1,
+    },
+    badgeText: {
+      color: colors.primary,
+      fontWeight: '800',
+      fontSize: wp('4%'),
     },
   });
 
@@ -151,28 +147,38 @@ export default function HomeScreen() {
           </Animated.Text>
           <LottieView autoPlay loop style={styles.lottie} source={lottie} />
           <Animated.Text style={[styles.subText, subColorStyle]}>
-            Choose a breathing exercise from the list below
+            How would you like to feel today?
           </Animated.Text>
         </View>
-        {CONFIG.map(({id, title, config}) => (
+        <View style={styles.badgeContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {feelings.map((item, i) => (
+              <TouchableOpacity
+                key={i}
+                onPress={() => console.log(feelings[i])}
+                style={[
+                  styles.badge,
+                  {
+                    marginLeft: i === 0 ? wp('5%') : 0,
+                  },
+                ]}
+              >
+                <Text style={styles.badgeText}>{item}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+        {CONFIG.map(({id, config}) => (
           <View key={id} style={styles.blockContainer}>
-            <View
-              style={{
-                ...styles.imageBackground,
+            <FlatList
+              data={config}
+              renderItem={renderItem}
+              keyExtractor={({id}) => id}
+              numColumns={2}
+              columnWrapperStyle={{
+                justifyContent: 'center',
               }}
-            >
-              <Text style={styles.header}>{title}</Text>
-            </View>
-            <View style={styles.mask} />
-            <View style={styles.flatListContainer}>
-              <FlatList
-                data={config}
-                renderItem={renderItem}
-                keyExtractor={({id}) => id}
-                numColumns={2}
-                columnWrapperStyle={styles.blocks}
-              />
-            </View>
+            />
           </View>
         ))}
       </ScrollView>

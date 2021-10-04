@@ -1,7 +1,11 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {useTheme} from '@react-navigation/native';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -9,7 +13,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {COLORS} from '../../constants/theme';
+import AnimatedText from '../Text';
 
 export default function Block({
   title,
@@ -22,7 +26,56 @@ export default function Block({
   theme: string;
   onPress?: () => void;
 }) {
+  const {colors} = useTheme();
+
+  const styles = StyleSheet.create({
+    block: {
+      position: 'relative',
+      width: wp('42%'),
+      height: hp('17%'),
+      backgroundColor: colors.background,
+      padding: 10,
+      borderRadius: 30,
+      shadowColor: colors.border,
+      marginHorizontal: 10,
+      marginVertical: 10,
+
+      shadowOffset: {
+        width: 1,
+        height: 3,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    blockWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100%',
+      width: '100%',
+    },
+    blockText: {
+      position: 'absolute',
+      color: colors.text,
+      top: 15,
+      left: 5,
+      fontSize: wp('5%'),
+      fontWeight: '300',
+    },
+    blockIndicator: {
+      position: 'absolute',
+      width: 40,
+      height: 40,
+      borderRadius: 40,
+      top: 5,
+      right: 5,
+      backgroundColor: colors.calm,
+    },
+  });
+
   const navigation = useNavigation() as any;
+
   const block = useSharedValue<number>(0);
   const scale = useSharedValue<number>(1);
 
@@ -54,55 +107,19 @@ export default function Block({
   }, [navigation]);
 
   return (
-    <Animated.View
-      style={[
-        {
-          ...styles.block,
-          backgroundColor: COLORS[theme],
-          shadowColor: COLORS[theme],
-        },
-        blockStyle,
-        blockHover,
-      ]}
-    >
+    <Animated.View style={[{...styles.block}, blockStyle, blockHover]}>
+      <Animated.View style={[styles.blockIndicator]} />
       <TouchableOpacity
         style={styles.blockWrapper}
         onPress={() => {
           onPress && onPress();
-          scale.value = withSpring(0);
+          scale.value = withSpring(1);
         }}
         onPressIn={() => (scale.value = withSpring(1.05))}
         onPressOut={() => (scale.value = withSpring(1))}
       >
-        <Text
-          style={{
-            ...styles.blockText,
-            color: theme === 'yellow' ? COLORS.black : COLORS.white,
-          }}
-        >
-          {title}
-        </Text>
+        <AnimatedText style={styles.blockText}>{title}</AnimatedText>
       </TouchableOpacity>
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  block: {
-    width: wp('42%'),
-    height: 80,
-    borderRadius: 30,
-    marginTop: 10,
-    marginBottom: 5,
-  },
-  blockWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%',
-  },
-  blockText: {
-    fontSize: 20,
-  },
-});
