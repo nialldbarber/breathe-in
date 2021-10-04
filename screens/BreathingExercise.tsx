@@ -1,10 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -13,12 +9,12 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import {ReText} from 'react-native-redash';
 import {Icon} from 'react-native-elements';
-import {RootStackParamList} from '../App';
+import {RootStackParamList} from '../components/Navigators/RootNavigator';
 import useGetAnimation from '../hooks/useGetAnimation';
 import useGetHaptics from '../hooks/useGetHaptics';
 import ExerciseButton from '../components/Exercise/Button';
 import ExerciseTitle from '../components/Exercise/Title';
-import Steps from '../components/Exercise/Steps';
+import ModalIcon from '../components/Modal';
 import {getTime} from '../utils/time';
 import {COLORS, SHADOW, WIDTH, HEIGHT} from '../constants/theme';
 
@@ -43,16 +39,6 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
 
   useGetHaptics(instructions);
 
-  const test = useSharedValue(0);
-
-  const testStyles = useAnimatedStyle(() => ({
-    opacity: test.value,
-  }));
-
-  React.useEffect(() => {
-    test.value = withTiming(1);
-  }, []);
-
   return (
     <View style={styles.container}>
       {/* <Steps {...{exercise, theme}} /> */}
@@ -62,8 +48,9 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
           backgroundColor: COLORS[`light${theme}`],
         }}
       >
+        <Text>hello {exerciseName}</Text>
         <TouchableOpacity
-          style={[{...styles.back}, testStyles]}
+          style={[{...styles.back}]}
           onPress={() => navigate('Home')}
         >
           <Icon
@@ -72,16 +59,7 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
             color={theme === 'yellow' ? COLORS.black : COLORS.white}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.info}
-          onPress={() => navigate('BreathingInfoModal')}
-        >
-          <Icon
-            name="info"
-            type="material"
-            color={theme === 'yellow' ? COLORS.black : COLORS.white}
-          />
-        </TouchableOpacity>
+        <ModalIcon modalScreen="BreathingInfoModal" mode="light" />
         {beginExercise ? (
           <Text
             style={{

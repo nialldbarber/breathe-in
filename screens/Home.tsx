@@ -27,12 +27,12 @@ import {getCurrentTime} from '../utils/getDate';
 import Block from '../components/Block';
 import {RootStackParamList} from '../components/Navigators/RootNavigator';
 import Badges from '../components/Badges';
-import {CONFIG} from '../constants/exercises';
+import ModalIcon from '../components/Modal';
 import {useSelector} from 'react-redux';
 
 const lottie = require('../assets/landscape.json');
 
-type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
+export type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function HomeScreen() {
   const {colors, normalize} = useTheme();
@@ -71,6 +71,7 @@ export default function HomeScreen() {
     },
     blockContainer: {
       justifyContent: 'center',
+      marginBottom: hp('4%'),
     },
     flatListContainer: {
       margin: wp('5%'),
@@ -100,32 +101,10 @@ export default function HomeScreen() {
     subHeaderOpacity.value = withDelay(1000, withTiming(1, {duration: 1000}));
   }, []);
 
-  const renderItem = ({
-    item: {exerciseName, page, exercise, type, delay, theme},
-  }: any) => (
-    <Block
-      title={exerciseName}
-      onPress={() =>
-        navigate(page, {
-          exerciseName,
-          exercise,
-          theme,
-          type,
-        })
-      }
-      {...{theme, delay}}
-    />
-  );
-
   return (
     <View style={styles.container}>
       <ScrollView>
-        <TouchableOpacity
-          onPress={() => navigate('InfoModal')}
-          style={styles.modal}
-        >
-          <Icon name="info" type="material" color={colors.text} />
-        </TouchableOpacity>
+        <ModalIcon modalScreen="InfoModal" mode="dark" />
         <View style={styles.textWrapper}>
           <Animated.Text style={[styles.text, colorStyle]}>
             {getCurrentTime()}
@@ -139,11 +118,29 @@ export default function HomeScreen() {
         <View style={styles.blockContainer}>
           <FlatList
             data={exercises}
-            renderItem={renderItem}
+            renderItem={({
+              item: {exerciseName, page, exercise, type, category},
+              index,
+            }: any) => (
+              <Block
+                title={exerciseName}
+                onPress={() =>
+                  navigate(page, {
+                    exerciseName,
+                    exercise,
+                    category,
+                    type,
+                  })
+                }
+                category={category}
+                delay={index * 400}
+              />
+            )}
             keyExtractor={({id}) => id}
             numColumns={2}
             columnWrapperStyle={{
-              justifyContent: 'center',
+              marginHorizontal: wp('3.5%'),
+              justifyContent: 'space-between',
             }}
           />
         </View>

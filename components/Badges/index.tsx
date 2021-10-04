@@ -20,9 +20,8 @@ export default function Badges() {
 
   const styles = StyleSheet.create({
     badgeContainer: {
-      marginTop: 15,
-      marginBottom: 15,
-      // height: 35,
+      marginTop: hp('2%'),
+      marginBottom: hp('4%'),
     },
     badge: {
       backgroundColor: colors.primaryFaded,
@@ -42,14 +41,16 @@ export default function Badges() {
 
   const dispatch = useDispatch();
 
+  // TODO: click event
+
   return (
     <View style={styles.badgeContainer}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {feelings.map((item, i) => (
           <TouchableOpacity
             key={i}
+            activeOpacity={1}
             onPress={() => {
-              // console.log(feelings[i])
               dispatch(filterBySelectedBadge(feelings[i]));
             }}
             style={[

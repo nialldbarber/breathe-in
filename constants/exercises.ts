@@ -29,16 +29,32 @@ export const feelings = [
   'unwind',
 ];
 
+export const FEELINGS_COLOR_MAP: Record<string, string> = {
+  calm: 'calm',
+  energy: 'primary',
+};
+
 export type ConfigT = {
   id: number;
   page: string;
   exerciseName: string;
   exercise: number[];
   type?: number;
-  delay: number;
   theme: string;
+  category?: string;
   tags?: string[];
 };
+
+// categories
+// - calm
+// - energy
+// - night
+
+// types
+// - 1 = in hold out hold
+// - 2 = in out hold
+// - 3 = in hold out
+// - 4 = in out
 
 export const CONFIG: ConfigT[] = [
   {
@@ -47,61 +63,54 @@ export const CONFIG: ConfigT[] = [
     exerciseName: 'Box',
     exercise: [4, 4, 4, 4],
     type: 4,
-    delay: 0,
-    theme: 'blue',
+    theme: 'dark',
+    category: 'calm',
     tags: [
-      'activated',
       'alleviated',
-      'awake',
       'balanced',
-      'blissful',
       'calm',
       'clear',
       'cool',
-      'dream',
-      'euphoric',
-      'energized',
-      'focused',
-      'pain relief',
       'peaceful',
-      'recharged',
       'relaxed',
-      'rise and shine',
-      'sleepy',
-      'stimulated',
       'tranquil',
-      'uplifted',
-      'unwind',
     ],
   },
   {
     id: 2,
     page,
-    exerciseName: 'Box #2',
-    exercise: [5, 5, 5, 5],
-    type: 4,
-    delay: 400,
-    theme: 'blue',
+    exerciseName: 'Calm',
+    exercise: [4, 7, 8, 0],
+    type: 2,
+    theme: 'dark',
+    category: 'calm',
     tags: ['uplifted'],
   },
   {
     id: 3,
     page,
-    exerciseName: 'Calm',
-    exercise: [4, 7, 8, 0],
-    type: 2,
-    delay: 800,
-    theme: 'blue',
+    exerciseName: 'Deep',
+    exercise: [5, 0, 5, 0],
+    type: 1,
+    theme: 'dark',
+    category: 'calm',
     tags: ['uplifted'],
   },
   {
     id: 4,
     page,
-    exerciseName: 'Deep',
-    exercise: [5, 0, 5, 0],
-    type: 1,
-    delay: 1200,
-    theme: 'blue',
-    tags: ['uplifted'],
+    exerciseName: 'Awake',
+    exercise: [6, 0, 2, 0],
+    type: 4,
+    theme: 'dark',
+    category: 'energy',
+    tags: [
+      'activated',
+      'awake',
+      'euphoric',
+      'energized',
+      'rise and shine',
+      'stimulated',
+    ],
   },
 ];

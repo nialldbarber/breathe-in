@@ -14,19 +14,19 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import AnimatedText from '../Text';
+import {FEELINGS_COLOR_MAP} from '../../constants/exercises';
 
-export default function Block({
-  title,
-  theme,
-  delay,
-  onPress,
-}: {
+type BlockProps = {
   title: string;
   delay: number;
-  theme: string;
+  category: string;
   onPress?: () => void;
-}) {
+};
+
+export default function Block({title, category, delay, onPress}: BlockProps) {
   const {colors} = useTheme();
+
+  console.log({delay});
 
   const styles = StyleSheet.create({
     block: {
@@ -65,12 +65,13 @@ export default function Block({
     },
     blockIndicator: {
       position: 'absolute',
-      width: 40,
-      height: 40,
+      width: 50,
+      height: 50,
       borderRadius: 40,
-      top: 5,
+      bottom: 5,
       right: 5,
-      backgroundColor: colors.calm,
+      backgroundColor: colors[FEELINGS_COLOR_MAP[category]],
+      transform: [{rotate: '180deg'}],
     },
   });
 
@@ -108,6 +109,7 @@ export default function Block({
       <Animated.View style={[styles.blockIndicator]} />
       <TouchableOpacity
         style={styles.blockWrapper}
+        activeOpacity={1}
         onPress={() => {
           onPress && onPress();
           scale.value = withSpring(1);
