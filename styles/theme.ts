@@ -1,7 +1,7 @@
 import {useWindowDimensions, Platform} from 'react-native';
 import Constants from 'expo-constants';
 
-export default function getTheme(scheme: any) {
+export default function getTheme(scheme: any): Record<string, any> {
   const {width, height} = useWindowDimensions();
   const dark = scheme === 'dark';
   const normalize = (size: number, max: number) =>
@@ -21,6 +21,7 @@ export default function getTheme(scheme: any) {
       warning: '#f39c12',
       error: '#e74c3c',
       calm: '#9CE2FF',
+      calmFaded: 'rgba(156, 226, 255, 0.45)',
       text: dark ? '#FFFFFF' : '#2D3047',
       background: dark ? '#2D3047' : '#FFFFFF',
       border: dark ? '#FFFFFF' : '#1a1a1a',

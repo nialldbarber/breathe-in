@@ -34,10 +34,10 @@ export default function Block({title, category, delay, onPress}: BlockProps) {
       backgroundColor: colors.background,
       padding: 10,
       borderRadius: 30,
-      shadowColor: colors.border,
       marginHorizontal: 10,
       marginVertical: 10,
 
+      shadowColor: colors.border,
       shadowOffset: {
         width: 1,
         height: 3,

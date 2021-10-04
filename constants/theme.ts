@@ -24,10 +24,10 @@ export const ORIGINAL_SIZE = WIDTH / 3;
 
 export const SHADOW = {
   shadowOffset: {
-    width: 0,
-    height: 7,
+    width: 1,
+    height: 3,
   },
-  shadowOpacity: 0.43,
-  shadowRadius: 9.51,
-  elevation: 15,
+  shadowOpacity: 0.1,
+  shadowRadius: 3.84,
+  elevation: 5,
 };

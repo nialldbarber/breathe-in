@@ -17,7 +17,7 @@ import ExerciseButton from '../components/Exercise/Button';
 import ExerciseTitle from '../components/Exercise/Title';
 import ModalIcon from '../components/Modal';
 import {getTime} from '../utils/time';
-import {COLORS, SHADOW, WIDTH, HEIGHT} from '../constants/theme';
+import {SHADOW, WIDTH, HEIGHT} from '../constants/theme';
 import {FEELINGS_COLOR_MAP} from '../constants/exercises';
 
 export type Instruct = number | string;
@@ -29,6 +29,11 @@ type breathingScreenProp = StackNavigationProp<
 export default function BreathingExerciseScreen({route}: {route: any}) {
   const {exerciseName, exercise, type, category} = route.params;
   const {colors} = useTheme();
+
+  const FADED_BACKGROUND: Record<string, string> = {
+    calm: colors.calmFaded,
+    energy: colors.primaryFaded,
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -60,7 +65,6 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
       alignItems: 'center',
       justifyContent: 'center',
       borderBottomRightRadius: 75,
-      backgroundColor: colors[FEELINGS_COLOR_MAP[category]],
     },
     outerCircle: {
       position: 'relative',
@@ -71,19 +75,19 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
       height: HEIGHT,
       borderRadius: WIDTH / 2,
       backgroundColor: colors.background,
-      shadowColor: colors[FEELINGS_COLOR_MAP[category]],
+      shadowColor: colors.text,
       ...SHADOW,
     },
     innerCircle: {
       position: 'absolute',
-      backgroundColor: colors[FEELINGS_COLOR_MAP[category]],
+      borderWidth: 3,
+      borderColor: colors[FEELINGS_COLOR_MAP[category]],
+      backgroundColor: FADED_BACKGROUND[category],
     },
     instructions: {
       position: 'absolute',
     },
   });
-
-  console.log({category});
 
   const {navigate} = useNavigation<breathingScreenProp>();
   const {
@@ -102,7 +106,6 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
     <View style={styles.container}>
       {/* <Steps {...{exercise, theme}} /> */}
       <View style={styles.outerCircleContainer}>
-        <Text>hello {exerciseName}</Text>
         <TouchableOpacity style={styles.back} onPress={() => navigate('Home')}>
           <Icon name="arrow-back" type="material" color={colors.text} />
         </TouchableOpacity>
@@ -118,8 +121,9 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
               <ReText
                 text={animatedText}
                 style={{
-                  color: colors.text,
-                  fontSize: 25,
+                  color: '#2098c9',
+                  fontSize: 20,
+                  fontWeight: '700',
                 }}
               />
             ) : null}
