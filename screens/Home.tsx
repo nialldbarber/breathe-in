@@ -22,10 +22,13 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {Icon} from 'react-native-elements';
+import {selectBadges} from '../store/selectors/exercises';
 import {getCurrentTime} from '../utils/getDate';
 import Block from '../components/Block';
 import {RootStackParamList} from '../components/Navigators/RootNavigator';
-import {CONFIG, feelings} from '../constants/exercises';
+import Badges from '../components/Badges';
+import {CONFIG} from '../constants/exercises';
+import {useSelector} from 'react-redux';
 
 const lottie = require('../assets/landscape.json');
 
@@ -77,28 +80,10 @@ export default function HomeScreen() {
       alignSelf: 'center',
       width: normalize(320, 400),
     },
-    badgeContainer: {
-      marginTop: 15,
-      marginBottom: 15,
-      // height: 35,
-    },
-    badge: {
-      backgroundColor: colors.primaryFaded,
-      paddingHorizontal: 12,
-      paddingVertical: 6,
-      borderRadius: 20,
-      marginRight: 10,
-      borderColor: colors.primary,
-      borderWidth: 1,
-    },
-    badgeText: {
-      color: colors.primary,
-      fontWeight: '800',
-      fontSize: wp('4%'),
-    },
   });
 
   const {navigate} = useNavigation<homeScreenProp>();
+  const exercises = useSelector(selectBadges);
   const headerOpacity = useSharedValue<number>(0);
   const subHeaderOpacity = useSharedValue<number>(0);
 
@@ -150,37 +135,18 @@ export default function HomeScreen() {
             How would you like to feel today?
           </Animated.Text>
         </View>
-        <View style={styles.badgeContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {feelings.map((item, i) => (
-              <TouchableOpacity
-                key={i}
-                onPress={() => console.log(feelings[i])}
-                style={[
-                  styles.badge,
-                  {
-                    marginLeft: i === 0 ? wp('5%') : 0,
-                  },
-                ]}
-              >
-                <Text style={styles.badgeText}>{item}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+        <Badges />
+        <View style={styles.blockContainer}>
+          <FlatList
+            data={exercises}
+            renderItem={renderItem}
+            keyExtractor={({id}) => id}
+            numColumns={2}
+            columnWrapperStyle={{
+              justifyContent: 'center',
+            }}
+          />
         </View>
-        {CONFIG.map(({id, config}) => (
-          <View key={id} style={styles.blockContainer}>
-            <FlatList
-              data={config}
-              renderItem={renderItem}
-              keyExtractor={({id}) => id}
-              numColumns={2}
-              columnWrapperStyle={{
-                justifyContent: 'center',
-              }}
-            />
-          </View>
-        ))}
       </ScrollView>
     </View>
   );

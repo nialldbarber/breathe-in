@@ -27,7 +27,6 @@ export const feelings = [
   'tranquil',
   'uplifted',
   'unwind',
-  'uplifted',
 ];
 
 export type ConfigT = {
@@ -41,7 +40,7 @@ export type ConfigT = {
   tags?: string[];
 };
 
-export const CALM_CONFIG: ConfigT[] = [
+export const CONFIG: ConfigT[] = [
   {
     id: 1,
     page,
@@ -73,7 +72,6 @@ export const CALM_CONFIG: ConfigT[] = [
       'tranquil',
       'uplifted',
       'unwind',
-      'uplifted',
     ],
   },
   {
@@ -84,6 +82,7 @@ export const CALM_CONFIG: ConfigT[] = [
     type: 4,
     delay: 400,
     theme: 'blue',
+    tags: ['uplifted'],
   },
   {
     id: 3,
@@ -93,6 +92,7 @@ export const CALM_CONFIG: ConfigT[] = [
     type: 2,
     delay: 800,
     theme: 'blue',
+    tags: ['uplifted'],
   },
   {
     id: 4,
@@ -102,77 +102,6 @@ export const CALM_CONFIG: ConfigT[] = [
     type: 1,
     delay: 1200,
     theme: 'blue',
-  },
-];
-
-export const AWAKE_CONFIG: ConfigT[] = [
-  {
-    id: 200,
-    page,
-    exerciseName: 'Awake',
-    exercise: [6, 0, 2, 0],
-    type: 1,
-    delay: 1600,
-    theme: 'yellow',
-  },
-  {
-    id: 201,
-    page,
-    exerciseName: 'Bliss',
-    exercise: [6, 0, 2, 0],
-    type: 1,
-    delay: 2000,
-    theme: 'yellow',
-  },
-  {
-    id: 200,
-    page,
-    exerciseName: 'Awake',
-    exercise: [6, 0, 2, 0],
-    type: 1,
-    delay: 1600,
-    theme: 'yellow',
-  },
-  {
-    id: 201,
-    page,
-    exerciseName: 'Bliss',
-    exercise: [6, 0, 2, 0],
-    type: 1,
-    delay: 2000,
-    theme: 'yellow',
-  },
-];
-
-export const NIGHT_TIME_CONFIG: ConfigT[] = [
-  {
-    id: 300,
-    page,
-    exerciseName: 'Sleep',
-    exercise: [6, 0, 2, 0],
-    type: 1,
-    delay: 2400,
-    theme: 'purple',
-  },
-];
-
-export const CONFIG = [
-  {
-    id: 1000,
-    title: 'Calm',
-    config: CALM_CONFIG,
-    theme: 'blue',
-  },
-  {
-    id: 1001,
-    title: 'Awake',
-    config: AWAKE_CONFIG,
-    theme: 'yellow',
-  },
-  {
-    id: 1002,
-    title: 'Night',
-    config: NIGHT_TIME_CONFIG,
-    theme: 'purple',
+    tags: ['uplifted'],
   },
 ];

@@ -90,12 +90,9 @@ export default function Block({
   useEffect(() => {
     block.value = withDelay(
       delay,
-      withDelay(
-        2000,
-        withTiming(1, {
-          duration: 1000,
-        })
-      )
+      withTiming(1, {
+        duration: 1000,
+      })
     );
   }, []);
 
