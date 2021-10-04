@@ -1,12 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -21,7 +14,6 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
-import {Icon} from 'react-native-elements';
 import {selectBadges} from '../store/selectors/exercises';
 import {getCurrentTime} from '../utils/getDate';
 import Block from '../components/Block';
