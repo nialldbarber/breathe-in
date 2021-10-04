@@ -26,8 +26,6 @@ type BlockProps = {
 export default function Block({title, category, delay, onPress}: BlockProps) {
   const {colors} = useTheme();
 
-  console.log({delay});
-
   const styles = StyleSheet.create({
     block: {
       position: 'relative',

@@ -17,7 +17,7 @@ type ExerciseButtonProps = {
   hasBegun: boolean;
   reset: () => void;
   action: () => void;
-  theme: string;
+  category: string;
 };
 
 export default function ExerciseButton({
@@ -25,8 +25,45 @@ export default function ExerciseButton({
   hasBegun,
   reset,
   action,
-  theme,
+  category,
 }: ExerciseButtonProps) {
+  const styles = StyleSheet.create({
+    button: {
+      height: hp('25%'),
+    },
+    buttonInnerWrap: {
+      ...StyleSheet.absoluteFillObject,
+    },
+    buttonInnerMask: {
+      flex: 1,
+      backgroundColor: COLORS.white,
+      borderTopLeftRadius: 75,
+    },
+    btn: {
+      alignItems: 'center',
+      alignSelf: 'center',
+      backgroundColor: COLORS.lightGrey,
+      top: hp('7.75%'),
+      width: 250,
+      borderRadius: 25,
+    },
+    btnText: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: COLORS.black,
+      fontSize: 20,
+      padding: 10,
+    },
+    message: {
+      alignItems: 'center',
+      alignSelf: 'center',
+      top: hp('11.25%'),
+      borderRadius: 25,
+      color: COLORS.black,
+      fontSize: 17,
+    },
+  });
+
   const btnOpacity = useSharedValue<number>(0);
   const msgOpacity = useSharedValue<number>(0);
 
@@ -53,7 +90,7 @@ export default function ExerciseButton({
       <View
         style={{
           ...styles.buttonInnerWrap,
-          backgroundColor: COLORS[`light${theme}`],
+          backgroundColor: COLORS[`light${category}`],
         }}
       >
         <View style={styles.buttonInnerMask}>
@@ -90,40 +127,3 @@ export default function ExerciseButton({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    height: hp('25%'),
-  },
-  buttonInnerWrap: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  buttonInnerMask: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-    borderTopLeftRadius: 75,
-  },
-  btn: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: COLORS.lightGrey,
-    top: hp('7.75%'),
-    width: 250,
-    borderRadius: 25,
-  },
-  btnText: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: COLORS.black,
-    fontSize: 20,
-    padding: 10,
-  },
-  message: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    top: hp('11.25%'),
-    borderRadius: 25,
-    color: COLORS.black,
-    fontSize: 17,
-  },
-});
