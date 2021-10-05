@@ -1,5 +1,6 @@
 Todos:
 
+- [ ] hold countdown animation
 - [ ] breathing page redesign
 - [ ] formalise imports
 - [ ] make prettier & eslint better

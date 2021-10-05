@@ -68,23 +68,19 @@ export default function useGetAnimation(
     }
   }, [beginExercise]);
 
+  // types
+  // - 1 = in hold out hold
+  // - 2 = in out hold
+  // - 3 = in hold out
+  // - 4 = in out
+
   useEffect(() => {
     if (beginExercise) {
-      if (type === 4) {
+      if (type === 1) {
         instructions.value = withRepeat(
           withSequence(
             withTiming(IN, {duration: secToMill(exercise[0])}),
             withTiming(HOLD, {duration: secToMill(exercise[1])}),
-            withTiming(OUT, {duration: secToMill(exercise[2])}),
-            withTiming(HOLD, {duration: secToMill(exercise[3])})
-          ),
-          -1,
-          false
-        );
-      } else if (type === 3) {
-        instructions.value = withRepeat(
-          withSequence(
-            withTiming(IN, {duration: secToMill(exercise[0])}),
             withTiming(OUT, {duration: secToMill(exercise[2])}),
             withTiming(HOLD, {duration: secToMill(exercise[3])})
           ),
@@ -95,13 +91,23 @@ export default function useGetAnimation(
         instructions.value = withRepeat(
           withSequence(
             withTiming(IN, {duration: secToMill(exercise[0])}),
+            withTiming(OUT, {duration: secToMill(exercise[2])}),
+            withTiming(HOLD, {duration: secToMill(exercise[3])})
+          ),
+          -1,
+          false
+        );
+      } else if (type === 3) {
+        instructions.value = withRepeat(
+          withSequence(
+            withTiming(IN, {duration: secToMill(exercise[0])}),
             withTiming(HOLD, {duration: secToMill(exercise[1])}),
             withTiming(OUT, {duration: secToMill(exercise[2])})
           ),
           -1,
           false
         );
-      } else if (type === 1) {
+      } else if (type === 4) {
         instructions.value = withRepeat(
           withSequence(
             withTiming(IN, {duration: secToMill(exercise[0])}),

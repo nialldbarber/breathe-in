@@ -30,6 +30,7 @@ export default function ModalIcon({modalScreen, mode}: ModalIconProps) {
   return (
     <TouchableOpacity
       onPress={() => navigate(modalScreen)}
+      activeOpacity={1}
       style={styles.modal}
     >
       <Icon

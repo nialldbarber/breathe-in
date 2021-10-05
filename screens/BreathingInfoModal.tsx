@@ -13,7 +13,7 @@ export default function BreathingInfoModalScreen() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.exit} onPress={goBack}>
+      <TouchableOpacity style={styles.exit} activeOpacity={1} onPress={goBack}>
         <Icon name="close" type="material" color={COLORS.black} />
       </TouchableOpacity>
       <Text style={styles.title}>Breathing info</Text>

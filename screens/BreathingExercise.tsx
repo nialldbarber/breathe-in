@@ -16,6 +16,7 @@ import useGetHaptics from '../hooks/useGetHaptics';
 import ExerciseButton from '../components/Exercise/Button';
 import ExerciseTitle from '../components/Exercise/Title';
 import ModalIcon from '../components/Modal';
+import InstructionsContainer from '../components/Exercise/Icons/InstructionContainer';
 import {getTime} from '../utils/time';
 import {SHADOW, WIDTH, HEIGHT} from '../constants/theme';
 import {FEELINGS_COLOR_MAP} from '../constants/exercises';
@@ -33,6 +34,11 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
   const FADED_BACKGROUND: Record<string, string> = {
     calm: colors.calmFaded,
     energy: colors.primaryFaded,
+  };
+
+  const DEEP_BACKGROUND: Record<string, string> = {
+    calm: colors.calmDeep,
+    energy: colors.primaryDeep,
   };
 
   const styles = StyleSheet.create({
@@ -65,6 +71,7 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
       alignItems: 'center',
       justifyContent: 'center',
       borderBottomRightRadius: 75,
+      backgroundColor: colors.background,
     },
     outerCircle: {
       position: 'relative',
@@ -83,6 +90,11 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
       borderWidth: 3,
       borderColor: colors[FEELINGS_COLOR_MAP[category]],
       backgroundColor: FADED_BACKGROUND[category],
+    },
+    innerText: {
+      color: DEEP_BACKGROUND[category],
+      fontSize: 20,
+      fontWeight: '700',
     },
     instructions: {
       position: 'absolute',
@@ -106,29 +118,40 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
     <View style={styles.container}>
       {/* <Steps {...{exercise, theme}} /> */}
       <View style={styles.outerCircleContainer}>
-        <TouchableOpacity style={styles.back} onPress={() => navigate('Home')}>
+        <TouchableOpacity
+          style={styles.back}
+          activeOpacity={1}
+          onPress={() => navigate('Home')}
+        >
           <Icon name="arrow-back" type="material" color={colors.text} />
         </TouchableOpacity>
-        <ModalIcon modalScreen="BreathingInfoModal" mode="light" />
+        <ModalIcon modalScreen="BreathingInfoModal" mode="dark" />
         {beginExercise ? (
           <Text style={styles.timer}>{getTime(seconds)}</Text>
         ) : null}
-        <ExerciseTitle title={exerciseName} {...{category}} />
+        <ExerciseTitle
+          title={exerciseName}
+          hasBegun={beginExercise}
+          {...{category}}
+        />
         <View style={styles.outerCircle}>
           <Animated.View style={[styles.innerCircle, innerCircleStyles]} />
           <View style={styles.instructions}>
             {beginExercise ? (
-              <ReText
-                text={animatedText}
-                style={{
-                  color: '#2098c9',
-                  fontSize: 20,
-                  fontWeight: '700',
-                }}
-              />
+              <ReText text={animatedText} style={styles.innerText} />
             ) : null}
           </View>
         </View>
+      </View>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: hp('26%'),
+          left: wp('0%'),
+          right: wp('0%'),
+        }}
+      >
+        <InstructionsContainer {...{type, exercise}} />
       </View>
       <ExerciseButton
         {...{beginExercise, reset, category}}

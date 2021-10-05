@@ -51,9 +51,11 @@ export default function HomeScreen() {
     text: {
       fontSize: wp('10%'),
       width: wp('50%'),
+      color: colors.text,
     },
     subText: {
       fontSize: wp('4.5%'),
+      color: colors.text,
     },
     header: {
       color: colors.text,

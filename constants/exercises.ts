@@ -62,7 +62,7 @@ export const CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Box',
     exercise: [4, 4, 4, 4],
-    type: 4,
+    type: 1,
     theme: 'dark',
     category: 'calm',
     tags: [
@@ -91,7 +91,7 @@ export const CONFIG: ConfigT[] = [
     page,
     exerciseName: 'Deep',
     exercise: [5, 0, 5, 0],
-    type: 1,
+    type: 4,
     theme: 'dark',
     category: 'calm',
     tags: ['uplifted'],

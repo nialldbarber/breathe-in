@@ -1,16 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from 'react-native-reanimated';
+import {useTheme} from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {impactAsync} from '../../utils/haptics';
-import {COLORS} from '../../constants/theme';
+import {COLORS, SHADOW} from '../../constants/theme';
+import {FEELINGS_COLOR_MAP} from '../../constants/exercises';
 
 type ExerciseButtonProps = {
   beginExercise: boolean;
@@ -27,100 +24,74 @@ export default function ExerciseButton({
   action,
   category,
 }: ExerciseButtonProps) {
+  const {colors} = useTheme();
+
   const styles = StyleSheet.create({
     button: {
-      height: hp('25%'),
+      alignSelf: 'center',
+      height: hp('20%'),
+      backgroundColor: colors.background,
+      width: wp('100%'),
+      shadowColor: colors.border,
+      shadowOffset: {
+        width: 1,
+        height: 3,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 12,
+      elevation: 5,
+      borderRadius: 30,
     },
     buttonInnerWrap: {
       ...StyleSheet.absoluteFillObject,
     },
     buttonInnerMask: {
       flex: 1,
-      backgroundColor: COLORS.white,
-      borderTopLeftRadius: 75,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     btn: {
       alignItems: 'center',
       alignSelf: 'center',
-      backgroundColor: COLORS.lightGrey,
-      top: hp('7.75%'),
       width: 250,
       borderRadius: 25,
+      backgroundColor: colors.text,
     },
     btnText: {
       justifyContent: 'center',
       alignItems: 'center',
-      color: COLORS.black,
+      color: colors.white,
       fontSize: 20,
       padding: 10,
     },
-    message: {
-      alignItems: 'center',
-      alignSelf: 'center',
-      top: hp('11.25%'),
-      borderRadius: 25,
-      color: COLORS.black,
-      fontSize: 17,
-    },
   });
-
-  const btnOpacity = useSharedValue<number>(0);
-  const msgOpacity = useSharedValue<number>(0);
-
-  const buttonStyle = useAnimatedStyle(() => ({
-    opacity: btnOpacity.value,
-  }));
-
-  const messageStyles = useAnimatedStyle(() => ({
-    opacity: msgOpacity.value,
-  }));
-
-  useEffect(() => {
-    msgOpacity.value = withTiming(1, {duration: 1000});
-    setTimeout(() => {
-      msgOpacity.value = withTiming(0);
-    }, 1800);
-    setTimeout(() => {
-      btnOpacity.value = withTiming(1, {duration: 1000});
-    }, 2000);
-  }, []);
 
   return (
     <View style={styles.button}>
-      <View
-        style={{
-          ...styles.buttonInnerWrap,
-          backgroundColor: COLORS[`light${category}`],
-        }}
-      >
+      <View style={styles.buttonInnerWrap}>
         <View style={styles.buttonInnerMask}>
-          <Animated.Text style={[styles.message, messageStyles]}>
-            Take a breath and...
-          </Animated.Text>
           {beginExercise ? (
-            <Animated.View style={buttonStyle}>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  reset();
-                  impactAsync('heavy');
-                }}
-              >
-                <Text style={styles.btnText}>Stop</Text>
-              </TouchableOpacity>
-            </Animated.View>
+            <TouchableOpacity
+              style={styles.btn}
+              activeOpacity={1}
+              onPress={() => {
+                reset();
+                impactAsync('heavy');
+              }}
+            >
+              <Text style={styles.btnText}>Stop</Text>
+            </TouchableOpacity>
           ) : (
-            <Animated.View style={buttonStyle}>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => {
-                  action();
-                  impactAsync('heavy');
-                }}
-              >
-                <Text style={styles.btnText}>Begin</Text>
-              </TouchableOpacity>
-            </Animated.View>
+            <TouchableOpacity
+              style={styles.btn}
+              activeOpacity={1}
+              onPress={() => {
+                action();
+                impactAsync('heavy');
+              }}
+            >
+              <Text style={styles.btnText}>Begin</Text>
+            </TouchableOpacity>
           )}
         </View>
       </View>
