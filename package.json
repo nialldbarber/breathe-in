@@ -8,7 +8,7 @@
     "eject": "expo eject"
   },
   "splash": {
-    "image": "./assets/blowing.json",
+    "image": "./assets/landscape.gif",
     "backgroundColor": "#FFFFFF"
   },
   "dependencies": {
@@ -30,6 +30,7 @@
     "react-native-animated-loader": "0.0.9",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-lottie-splash-screen": "^0.1.14",
     "react-native-reanimated": "~2.2.0",
     "react-native-redash": "^16.2.2",
     "react-native-responsive-screen": "^1.4.2",
@@ -38,7 +39,8 @@
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.13.12",
     "react-navigation-shared-element": "^3.1.3",
-    "react-redux": "^7.2.5"
+    "react-redux": "^7.2.5",
+    "expo-splash-screen": "~0.11.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -1,9 +1,5 @@
 Todos:
 
-- [ ] countdown before exercise starts
-- [ ] intro animation
-- [ ] hold countdown animation
-- [ ] lottie animations
 - [ ] get first name from localstorage?
 - [ ] info popups
 - [ ] custom breathing exercises
@@ -11,6 +7,10 @@ Todos:
 - [ ] formalise imports
 - [ ] make prettier & eslint better
 - [ ] tests
+- [ ] hold countdown animation
+- [ ] intro animation
+- [x] intro image
+- [x] countdown before exercise starts
 - [x] badge select animation
 - [x] instructions
 - [x] breathing page redesign
