@@ -103,6 +103,7 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
 
   const {navigate} = useNavigation<breathingScreenProp>();
   const {
+    startCountdown,
     seconds,
     beginExercise,
     handleBeginExercise,
@@ -154,9 +155,8 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
         <InstructionsContainer {...{type, exercise}} />
       </View>
       <ExerciseButton
-        {...{beginExercise, reset, category}}
+        {...{beginExercise, reset, category, startCountdown}}
         action={() => handleBeginExercise(true)}
-        hasBegun={beginExercise}
       />
     </View>
   );

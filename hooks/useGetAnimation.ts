@@ -15,6 +15,7 @@ import {IN, OUT, HOLD} from '../constants/exercises';
 import {Instruct} from '../screens/BreathingExercise';
 
 type AnimationT = {
+  startCountdown: boolean;
   seconds: number;
   beginExercise: boolean;
   handleBeginExercise: (cond: boolean) => void;
@@ -32,6 +33,7 @@ export default function useGetAnimation(
   type: number,
   exercise: number[]
 ): AnimationT {
+  const [startCountdown, setStartCountdown] = useState<boolean>(false);
   const [seconds, setSeconds] = useState<number>(0);
   const [beginExercise, setBeginExercise] = useState<boolean>(false);
   const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
@@ -67,12 +69,6 @@ export default function useGetAnimation(
       );
     }
   }, [beginExercise]);
-
-  // types
-  // - 1 = in hold out hold
-  // - 2 = in out hold
-  // - 3 = in hold out
-  // - 4 = in out
 
   useEffect(() => {
     if (beginExercise) {
@@ -120,18 +116,31 @@ export default function useGetAnimation(
     }
   }, [beginExercise]);
 
-  useInterval(() => setSeconds((sec) => sec + 1), 1000, beginExercise, seconds);
+  useInterval(() => {
+    setSeconds((sec) => sec + 1), 1000, beginExercise, seconds;
+  });
 
-  const handleBeginExercise = (cond: boolean): void => setBeginExercise(cond);
+  const handleBeginExercise = (cond: boolean): void => {
+    setStartCountdown(true);
+    if (cond) {
+      setTimeout(() => {
+        setBeginExercise(cond);
+      }, 4000);
+    } else {
+      setBeginExercise(cond);
+    }
+  };
 
   function reset(): void {
     setSeconds(0);
     handleBeginExercise(false);
+    setStartCountdown(false);
     innerCircle.value = withSpring(ORIGINAL_SIZE);
     instructions.value = '';
   }
 
   return {
+    startCountdown,
     seconds,
     beginExercise,
     handleBeginExercise,

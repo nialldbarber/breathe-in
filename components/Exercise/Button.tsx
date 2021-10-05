@@ -5,24 +5,21 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import Loader from '../Loader';
 import {impactAsync} from '../../utils/haptics';
-import {COLORS, SHADOW} from '../../constants/theme';
-import {FEELINGS_COLOR_MAP} from '../../constants/exercises';
 
 type ExerciseButtonProps = {
+  startCountdown: boolean;
   beginExercise: boolean;
-  hasBegun: boolean;
   reset: () => void;
   action: () => void;
-  category: string;
 };
 
 export default function ExerciseButton({
+  startCountdown,
   beginExercise,
-  hasBegun,
   reset,
   action,
-  category,
 }: ExerciseButtonProps) {
   const {colors} = useTheme();
 
@@ -51,20 +48,28 @@ export default function ExerciseButton({
       justifyContent: 'center',
     },
     btn: {
+      display: 'flex',
       alignItems: 'center',
       alignSelf: 'center',
+      justifyContent: 'center',
+      height: hp('5%'),
       width: 250,
       borderRadius: 25,
       backgroundColor: colors.text,
     },
     btnText: {
-      justifyContent: 'center',
-      alignItems: 'center',
       color: colors.white,
       fontSize: 20,
-      padding: 10,
     },
   });
+
+  const isLoaderActive = startCountdown && !beginExercise;
+  const beginExerciseIfNotActive = () => {
+    if (!isLoaderActive) {
+      action();
+      impactAsync('heavy');
+    }
+  };
 
   return (
     <View style={styles.button}>
@@ -85,12 +90,16 @@ export default function ExerciseButton({
             <TouchableOpacity
               style={styles.btn}
               activeOpacity={1}
-              onPress={() => {
-                action();
-                impactAsync('heavy');
-              }}
+              disabled={isLoaderActive}
+              onPress={beginExerciseIfNotActive}
             >
-              <Text style={styles.btnText}>Begin</Text>
+              <View>
+                {isLoaderActive ? (
+                  <Loader active={isLoaderActive} />
+                ) : (
+                  <Text style={styles.btnText}>Begin</Text>
+                )}
+              </View>
             </TouchableOpacity>
           )}
         </View>

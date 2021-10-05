@@ -1,7 +1,7 @@
 Todos:
 
-- [ ] badge select animation
 - [ ] countdown before exercise starts
+- [ ] intro animation
 - [ ] hold countdown animation
 - [ ] lottie animations
 - [ ] get first name from localstorage?
@@ -11,6 +11,7 @@ Todos:
 - [ ] formalise imports
 - [ ] make prettier & eslint better
 - [ ] tests
+- [x] badge select animation
 - [x] instructions
 - [x] breathing page redesign
 - [x] time of day greeting
