@@ -1,6 +1,5 @@
 Todos:
 
-- [ ] get first name from localstorage?
 - [ ] info popups
 - [ ] custom breathing exercises
 - [ ] dark mode
@@ -9,6 +8,7 @@ Todos:
 - [ ] tests
 - [ ] hold countdown animation
 - [ ] intro animation
+- [ ] get first name from localstorage?
 - [x] intro image
 - [x] countdown before exercise starts
 - [x] badge select animation

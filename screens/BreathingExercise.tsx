@@ -99,6 +99,12 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
     instructions: {
       position: 'absolute',
     },
+    instructionContainer: {
+      position: 'absolute',
+      bottom: hp('26%'),
+      left: wp('0%'),
+      right: wp('0%'),
+    },
   });
 
   const {navigate} = useNavigation<breathingScreenProp>();
@@ -126,7 +132,7 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
         >
           <Icon name="arrow-back" type="material" color={colors.text} />
         </TouchableOpacity>
-        <ModalIcon modalScreen="BreathingInfoModal" mode="dark" />
+        {/* <ModalIcon modalScreen="BreathingInfoModal" mode="dark" /> */}
         {beginExercise ? (
           <Text style={styles.timer}>{getTime(seconds)}</Text>
         ) : null}
@@ -144,14 +150,7 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
           </View>
         </View>
       </View>
-      <View
-        style={{
-          position: 'absolute',
-          bottom: hp('26%'),
-          left: wp('0%'),
-          right: wp('0%'),
-        }}
-      >
+      <View style={styles.instructionContainer}>
         <InstructionsContainer {...{type, exercise}} />
       </View>
       <ExerciseButton

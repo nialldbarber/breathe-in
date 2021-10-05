@@ -7,7 +7,7 @@ export default function Badges() {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       {feelings.map((item, i) => (
-        <BadgeInner {...{i, item}} />
+        <BadgeInner key={i} {...{i, item}} />
       ))}
     </ScrollView>
   );
