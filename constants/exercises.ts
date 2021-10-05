@@ -32,6 +32,7 @@ export const feelings = [
 export const FEELINGS_COLOR_MAP: Record<string, string> = {
   calm: 'calm',
   energy: 'primary',
+  night: 'night',
 };
 
 export type ConfigT = {
@@ -111,6 +112,44 @@ export const CONFIG: ConfigT[] = [
       'energized',
       'rise and shine',
       'stimulated',
+    ],
+  },
+  {
+    id: 5,
+    page,
+    exerciseName: 'Recharge',
+    exercise: [5, 3, 4, 3],
+    type: 1,
+    theme: 'dark',
+    category: 'energy',
+    tags: [
+      'activated',
+      'awake',
+      'energized',
+      'focused',
+      'recharged',
+      'rise and shine',
+      'stimulated',
+    ],
+  },
+  // NIGHT
+  {
+    id: 6,
+    page,
+    exerciseName: 'Dream',
+    exercise: [5, 15, 5, 0],
+    type: 3,
+    theme: 'dark',
+    category: 'night',
+    tags: [
+      'balanced',
+      'calm',
+      'dream',
+      'peaceful',
+      'relaxed',
+      'sleepy',
+      'tranquil',
+      'unwind',
     ],
   },
 ];

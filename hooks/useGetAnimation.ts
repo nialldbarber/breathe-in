@@ -117,7 +117,9 @@ export default function useGetAnimation(
   }, [beginExercise]);
 
   useInterval(() => {
-    setSeconds((sec) => sec + 1), 1000, beginExercise, seconds;
+    if (beginExercise) {
+      setSeconds((sec) => sec + 1), 1000, beginExercise, seconds;
+    }
   });
 
   const handleBeginExercise = (cond: boolean): void => {

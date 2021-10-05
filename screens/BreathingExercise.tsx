@@ -34,11 +34,13 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
   const FADED_BACKGROUND: Record<string, string> = {
     calm: colors.calmFaded,
     energy: colors.primaryFaded,
+    night: colors.nightFaded,
   };
 
   const DEEP_BACKGROUND: Record<string, string> = {
     calm: colors.calmDeep,
     energy: colors.primaryDeep,
+    night: colors.nightDeep,
   };
 
   const styles = StyleSheet.create({
