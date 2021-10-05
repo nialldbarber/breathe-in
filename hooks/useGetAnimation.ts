@@ -7,12 +7,14 @@ import Animated, {
   withRepeat,
   withSequence,
   withSpring,
+  withDelay,
 } from 'react-native-reanimated';
 import useInterval from './useInterval';
 import {secToMill} from '../utils/time';
 import {WIDTH, ORIGINAL_SIZE} from '../constants/theme';
 import {IN, OUT, HOLD} from '../constants/exercises';
 import {Instruct} from '../screens/BreathingExercise';
+import useTimeout from './useTimeout';
 
 type AnimationT = {
   startCountdown: boolean;
@@ -38,11 +40,13 @@ export default function useGetAnimation(
   const [beginExercise, setBeginExercise] = useState<boolean>(false);
   const innerCircle = useSharedValue<number>(ORIGINAL_SIZE);
   const instructions = useSharedValue<Instruct>('');
+  const scale = useSharedValue<number>(0);
 
   const innerCircleStyles = useAnimatedStyle(() => ({
     width: innerCircle.value,
     height: innerCircle.value,
     borderRadius: innerCircle.value / 2,
+    transform: [{scale: scale.value}],
   }));
 
   const animatedText = useDerivedValue(() => {
@@ -115,6 +119,10 @@ export default function useGetAnimation(
       }
     }
   }, [beginExercise]);
+
+  useEffect(() => {
+    scale.value = withDelay(450, withSpring(1));
+  }, []);
 
   useInterval(() => {
     if (beginExercise) {

@@ -16,8 +16,7 @@ export default function InfoModalScreen() {
       <TouchableOpacity style={styles.exit} activeOpacity={1} onPress={goBack}>
         <Icon name="close" type="material" color={COLORS.black} />
       </TouchableOpacity>
-      <Text style={styles.title}>Home</Text>
-      <View style={styles.separator} />
+      <Text style={styles.title}>Welcome to chill!</Text>
     </View>
   );
 }

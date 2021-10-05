@@ -98,7 +98,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <ModalIcon modalScreen="InfoModal" mode="dark" />
+        <ModalIcon modalScreen="InfoModal" mode="light" />
         <View style={styles.textWrapper}>
           <Animated.Text style={[styles.text, colorStyle]}>
             {getCurrentTime()}
@@ -113,13 +113,15 @@ export default function HomeScreen() {
           <FlatList
             data={exercises}
             renderItem={({
-              item: {exerciseName, page, exercise, type, category},
+              item: {id, exerciseName, page, exercise, type, category},
               index,
             }: any) => (
               <Block
+                id={id}
                 title={exerciseName}
                 onPress={() =>
                   navigate(page, {
+                    id,
                     exerciseName,
                     exercise,
                     category,

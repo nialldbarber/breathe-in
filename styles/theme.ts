@@ -35,7 +35,7 @@ export default function getTheme(scheme: any): Record<string, any> {
       border: dark ? '#FFFFFF' : '#1a1a1a',
       button: dark ? '#1a1a1a' : '#FFFFFF',
     },
-    font: Platform.OS === 'ios' ? 'Avenir Next' : 'Roboto',
+    // font: Platform.OS === 'ios' ? 'Avenir Next' : 'Roboto',
     status: Constants.statusBarHeight,
     navbar: Constants.statusBarHeight + 44,
     normalize,

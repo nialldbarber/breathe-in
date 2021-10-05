@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '@react-navigation/native';
+import {SharedElement} from 'react-navigation-shared-element';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -17,13 +18,20 @@ import AnimatedText from '../Text';
 import {FEELINGS_COLOR_MAP} from '../../constants/exercises';
 
 type BlockProps = {
+  id?: string;
   title: string;
   delay: number;
   category: string;
   onPress?: () => void;
 };
 
-export default function Block({title, category, delay, onPress}: BlockProps) {
+export default function Block({
+  id,
+  title,
+  category,
+  delay,
+  onPress,
+}: BlockProps) {
   const {colors} = useTheme();
 
   const styles = StyleSheet.create({
@@ -47,27 +55,24 @@ export default function Block({title, category, delay, onPress}: BlockProps) {
       elevation: 5,
     },
     blockWrapper: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
       height: '100%',
       width: '100%',
     },
     blockText: {
-      position: 'absolute',
       color: colors.text,
-      top: 15,
-      left: 5,
       fontSize: wp('5%'),
       fontWeight: '300',
+      position: 'absolute',
+      left: 10,
+      top: 10,
     },
     blockIndicator: {
       position: 'absolute',
       width: 50,
       height: 50,
       borderRadius: 40,
-      bottom: 5,
-      right: 5,
+      top: hp('9%'),
+      right: wp('1%'),
       backgroundColor: colors[FEELINGS_COLOR_MAP[category]],
       transform: [{rotate: '180deg'}],
     },
@@ -104,7 +109,9 @@ export default function Block({title, category, delay, onPress}: BlockProps) {
 
   return (
     <Animated.View style={[{...styles.block}, blockStyle, blockHover]}>
-      <Animated.View style={[styles.blockIndicator]} />
+      <SharedElement id={id}>
+        <Animated.View style={[styles.blockIndicator]} />
+      </SharedElement>
       <TouchableOpacity
         style={styles.blockWrapper}
         activeOpacity={1}
@@ -115,7 +122,9 @@ export default function Block({title, category, delay, onPress}: BlockProps) {
         onPressIn={() => (scale.value = withSpring(1.05))}
         onPressOut={() => (scale.value = withSpring(1))}
       >
-        <AnimatedText style={styles.blockText}>{title}</AnimatedText>
+        <SharedElement id={title}>
+          <AnimatedText style={styles.blockText}>{title}</AnimatedText>
+        </SharedElement>
       </TouchableOpacity>
     </Animated.View>
   );

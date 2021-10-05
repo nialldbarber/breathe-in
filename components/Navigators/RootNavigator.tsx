@@ -1,9 +1,7 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 import HomeScreen from '../../screens/Home';
-import InfoModalScreen from '../../screens/InfoModal';
 import BreathingExerciseScreen from '../../screens/BreathingExercise';
-import BreathingInfoModalScreen from '../../screens/BreathingInfoModal';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -15,25 +13,7 @@ export type RootStackParamList = {
 const options = {headerShown: false};
 
 export default function RootNavigator() {
-  const Stack = createNativeStackNavigator();
-
-  const fadeScreen = ({current}: {current: any}) => ({
-    cardStyle: {
-      opacity: current.progress,
-    },
-  });
-
-  const bookTransition = {
-    animation: 'spring',
-    config: {
-      mass: 3,
-      damping: 300,
-      stiffness: 1000,
-      overshootClamping: false,
-      restDisplacementThreshold: 10,
-      restSpeedThreshold: 10,
-    },
-  };
+  const Stack = createSharedElementStackNavigator<RootStackParamList>();
 
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -41,30 +21,14 @@ export default function RootNavigator() {
       <Stack.Screen
         name="BreathingExercise"
         component={BreathingExerciseScreen}
-        options={{
-          gestureEnabled: false,
-          cardStyleInterpolator: fadeScreen,
-          headerShown: false,
-          transitionSpec: {
-            open: bookTransition,
-            close: bookTransition,
-          },
+        options={{headerShown: false}}
+        sharedElements={(route, otherRoute, showing) => {
+          if (otherRoute.name === 'Home' && showing) {
+            const {exerciseName, id} = route.params;
+            return [exerciseName, `${id}`];
+          }
         }}
       />
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
-        <Stack.Screen
-          name="InfoModal"
-          component={InfoModalScreen}
-          {...{options}}
-        />
-      </Stack.Group>
-      <Stack.Group screenOptions={{presentation: 'modal'}}>
-        <Stack.Screen
-          name="BreathingInfoModal"
-          component={BreathingInfoModalScreen}
-          {...{options}}
-        />
-      </Stack.Group>
     </Stack.Navigator>
   );
 }

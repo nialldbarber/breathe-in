@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
 import {useTheme} from '@react-navigation/native';
+import {SharedElement} from 'react-navigation-shared-element';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -34,6 +35,7 @@ export default function ExerciseTitle({
     },
     title: {
       fontSize: wp('10%'),
+      fontWeight: '300',
       color: colors.text,
     },
   });
@@ -54,7 +56,9 @@ export default function ExerciseTitle({
 
   return (
     <Animated.View style={[styles.container, topStyles]}>
-      <Text style={styles.title}>{title}</Text>
+      <SharedElement id={title}>
+        <Text style={styles.title}>{title}</Text>
+      </SharedElement>
     </Animated.View>
   );
 }

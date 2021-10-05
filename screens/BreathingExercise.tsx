@@ -20,6 +20,7 @@ import InstructionsContainer from '../components/Exercise/Icons/InstructionConta
 import {getTime} from '../utils/time';
 import {SHADOW, WIDTH, HEIGHT} from '../constants/theme';
 import {FEELINGS_COLOR_MAP} from '../constants/exercises';
+import {SharedElement} from 'react-navigation-shared-element';
 
 export type Instruct = number | string;
 type breathingScreenProp = StackNavigationProp<
@@ -28,7 +29,7 @@ type breathingScreenProp = StackNavigationProp<
 >;
 
 export default function BreathingExerciseScreen({route}: {route: any}) {
-  const {exerciseName, exercise, type, category} = route.params;
+  const {id, exerciseName, exercise, type, category} = route.params;
   const {colors} = useTheme();
 
   const FADED_BACKGROUND: Record<string, string> = {
@@ -78,7 +79,6 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
     outerCircle: {
       position: 'relative',
       display: 'flex',
-      alignItems: 'center',
       justifyContent: 'center',
       width: WIDTH,
       height: HEIGHT,
@@ -88,7 +88,11 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
       ...SHADOW,
     },
     innerCircle: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       position: 'absolute',
+      alignSelf: 'center',
       borderWidth: 3,
       borderColor: colors[FEELINGS_COLOR_MAP[category]],
       backgroundColor: FADED_BACKGROUND[category],
@@ -97,9 +101,6 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
       color: DEEP_BACKGROUND[category],
       fontSize: 20,
       fontWeight: '700',
-    },
-    instructions: {
-      position: 'absolute',
     },
     instructionContainer: {
       position: 'absolute',
@@ -143,14 +144,17 @@ export default function BreathingExerciseScreen({route}: {route: any}) {
           hasBegun={beginExercise}
           {...{category}}
         />
-        <View style={styles.outerCircle}>
-          <Animated.View style={[styles.innerCircle, innerCircleStyles]} />
-          <View style={styles.instructions}>
-            {beginExercise ? (
-              <ReText text={animatedText} style={styles.innerText} />
-            ) : null}
+        <SharedElement id={id}>
+          <View style={styles.outerCircle}>
+            <Animated.View style={[styles.innerCircle, innerCircleStyles]}>
+              <View>
+                {beginExercise ? (
+                  <ReText text={animatedText} style={styles.innerText} />
+                ) : null}
+              </View>
+            </Animated.View>
           </View>
-        </View>
+        </SharedElement>
       </View>
       <View style={styles.instructionContainer}>
         <InstructionsContainer {...{type, exercise}} />
